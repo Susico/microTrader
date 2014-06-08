@@ -1,3 +1,13 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "com.googlecode.disruptor:disruptor:3.2.1"
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '1.12'
 }
