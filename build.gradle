@@ -5,7 +5,11 @@ repositories {
 }
 
 dependencies {
-    compile "com.googlecode.disruptor:disruptor:3.2.1"
+    compile group: 'com.googlecode.disruptor', name: 'disruptor', version: '3.2.1'
+    compile group: 'net.openhft', name: 'chronicle', version: '2.0.3'
+    compile group: 'com.goldmansachs', name: 'gs-collections-api', version: '5.0.0'
+    compile group: 'com.goldmansachs', name: 'gs-collections-forkjoin', version: '5.0.0'
+    compile group: 'com.goldmansachs', name: 'gs-collections', version: '5.0.0'
 }
 
 task wrapper(type: Wrapper) {
