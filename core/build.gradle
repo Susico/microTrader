@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'maven'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
@@ -13,7 +14,6 @@ configurations {
 }
 
 dependencies {
-   compile project(':core')
    compile group: 'com.googlecode.disruptor', name: 'disruptor', version: '3.2.1'
 
    compile group: 'it.unimi.dsi', name: 'fastutil', version: '6.5.15'
