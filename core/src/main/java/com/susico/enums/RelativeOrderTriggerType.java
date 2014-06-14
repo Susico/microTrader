@@ -3,7 +3,7 @@ package com.susico.enums;
 /**
  * Created by Suminda on 09/06/2014.
  */
-public enum DependentOrderType {
+public enum RelativeOrderTriggerType {
    /**
     * Trailing
     */
@@ -13,9 +13,13 @@ public enum DependentOrderType {
     */
    Touched,
    /**
-    * Pegged
+    * Close
     */
-   Pegged,
+   Close,
+   /**
+    * Twigged when not filled
+    */
+   NotFilled,
    /**
     * Default
     */

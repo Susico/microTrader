@@ -37,6 +37,10 @@ public enum OrderTimeInForce {
     */
    OnMarketOpen,
    /**
+    * Opening or clos
+    */
+   Auction,
+   /**
     * Default
     */
    Default,

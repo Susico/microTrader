@@ -3,126 +3,291 @@ package com.susico.event;
 import com.susico.enums.*;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
-
-import java.util.Map;
-import java.util.Set;
+import it.unimi.dsi.lang.MutableString;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static com.susico.factories.CollectionFactory.getLongSet;
 import static com.susico.factories.CollectionFactory.getObjectObjectMap;
+import static com.susico.factories.MutableStringFactory.getMutableString;
 
+/**
+ * Created by Suminda on 09/06/2014.
+ */
 public class Order extends EventBase {
-   private final StringBuilder             ticker                    = new StringBuilder();
-   private final StringBuilder             exchange                  = new StringBuilder();
-   private final StringBuilder             orderTypeName             = new StringBuilder();
-   private final LongSet                   contingentChildOrderIds   = getLongSet(); // ID of linked order
-   private final LongSet                   contingentParentOrderIds  = getLongSet();
-   private final StringBuilder             orderGroupName            = new StringBuilder();
-   // Logically group orders
-   private final Set<Long>                 groupOrderIds             = getLongSet();
-   private final StringBuilder             tag                       = new StringBuilder();
-   private final Object2ObjectMap          meta                      = getObjectObjectMap();
-   private       long                      id                        = 0;
-   private       double                    size                      = Double.NaN;
-   private       OrderType                 orderTypeLevel1           = OrderType.Default;
-   private       double                    priceLevel1               = Double.NaN; // Limit or stop
-   private       OrderType                 orderTypeLevel2           = OrderType.Default;
-   private       double                    priceLevel2               = Double.NaN; // Limit on stop limit
-   private       OrderType                 orderTypeLevel3           = OrderType.Default;
-   private       double                    priceLevel3               = Double.NaN;
-   // For multi stage transitional order types combining market, stop, limit
-   private       DependentOrderType        dependentOrderType        = DependentOrderType.Default;
-   private       DependentOrderAnchorType  dependentOrderAnchorType  = DependentOrderAnchorType.Default;
-   // Trail, touch, peg
-   private       DependentParamOffsetType  dependentParamOffsetType  = DependentParamOffsetType.Default;
-   // % or value offset
-   private       double                    dependentOrderParam       = Double.NaN;
-   // Trailing % or value, peg offset, etc.
-   private       OrderStatus               contingentOrderTrigger    = OrderStatus.Default;
-   private       ContingentOrderActionType contingentOrderActionType = ContingentOrderActionType.Default;
-   private       GroupOrderType            groupOrderType            = GroupOrderType.Default;
+   @NotNull private       long          id            = 0;
+   @NotNull private final MutableString ticker        = getMutableString();
+   @NotNull private final MutableString exchange      = getMutableString();
+   @NotNull private final MutableString orderTypeName = getMutableString();
+   @NotNull private       double        size          = Double.NaN;
 
-   public void set(long id, StringBuilder ticker, StringBuilder exchange, StringBuilder orderTypeName, double size,
-                   OrderType orderTypeLevel1, double priceLevel1, OrderType orderTypeLevel2, double priceLevel2,
-                   OrderType orderTypeLevel3, double priceLevel3, double dependentOrderParam,
-                   OrderStatus contingentOrderTrigger, ContingentOrderActionType contingentOrderActionType,
-                   Set<Long> contingentChildOrderIds, Set<Long> contingentParentOrderIds, GroupOrderType groupOrderType,
-                   StringBuilder orderGroupName, Set<Long> groupOrderIds, StringBuilder tag, Map<?, ?> meta) {
-      this.id = id; setTicker(ticker); setExchange(exchange); setOrderTypeName(orderTypeName); this.size = size;
-      setOrderTypeLevel1(orderTypeLevel1); setOrderTypeLevel2(orderTypeLevel2); setOrderTypeLevel3(orderTypeLevel3);
-      this.priceLevel1 = priceLevel1; this.priceLevel2 = priceLevel2; this.priceLevel3 = priceLevel3;
-      this.dependentOrderParam = dependentOrderParam; setMeta(meta);
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private OrderType orderTypeLevel1 = OrderType.Default;
+   /** Limit or stop */
+   @NotNull private double    priceLevel1     = Double.NaN;
+   @NotNull private OrderType orderTypeLevel2 = OrderType.Default;
+   /** Limit on StopLimit */
+   @NotNull private double    priceLevel2     = Double.NaN;
+   @NotNull private OrderType orderTypeLevel3 = OrderType.Default;
+   /** For multi stage transitional order types combining market, stop, limit */
+   @NotNull private double    priceLevel3     = Double.NaN;
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private RelativeOrderTriggerType relativeOrderTriggerType = RelativeOrderTriggerType.Default;
+   @NotNull private RelativeOrderAnchorType  relativeOrderAnchorType  = RelativeOrderAnchorType.Default;
+   @NotNull private RelativeOrderUpdateMode  relativeOrderUpdateMode  = RelativeOrderUpdateMode.Default;
+   /** Trail, touch, peg */
+   @NotNull private RelativeParamOffsetType  relativeParamOffsetType  = RelativeParamOffsetType.Default;
+   /** % or value offset */
+   @NotNull private double                   relativeOrderParam       = Double.NaN;
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private       OrderStatus               contingentOrderTrigger    = OrderStatus.Default;
+   @NotNull private       ContingentOrderActionType contingentOrderActionType = ContingentOrderActionType.Default;
+   /** ID of linked order */
+   @NotNull private final LongSet                   contingentChildOrderIds   = getLongSet();
+   /** Trailing % or value, peg offset, etc. */
+   @NotNull private final LongSet                   contingentParentOrderIds  = getLongSet();
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private       GroupOrderType groupOrderType = GroupOrderType.Default;
+   /** Logically group orders */
+   @NotNull private final LongSet        groupOrderIds  = getLongSet();
+   @NotNull private final MutableString  orderGroupName = getMutableString();
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private final MutableString tag = getMutableString();
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private final Object2ObjectMap meta = getObjectObjectMap();
+
+   public void set(long timeStamp, long id, @NotNull MutableString ticker, @NotNull MutableString exchange,
+                   @NotNull MutableString orderTypeName, double size, @NotNull OrderType orderTypeLevel1,
+                   double priceLevel1, @NotNull OrderType orderTypeLevel2, double priceLevel2,
+                   @NotNull OrderType orderTypeLevel3, double priceLevel3,
+                   @NotNull RelativeOrderTriggerType relativeOrderTriggerType,
+                   @NotNull RelativeOrderAnchorType relativeOrderAnchorType,
+                   @NotNull RelativeParamOffsetType relativeParamOffsetType, double relativeOrderParam,
+                   @NotNull OrderStatus contingentOrderTrigger,
+                   @NotNull ContingentOrderActionType contingentOrderActionType,
+                   @NotNull LongSet contingentChildOrderIds, @NotNull LongSet contingentParentOrderIds,
+                   @NotNull GroupOrderType groupOrderType, @NotNull MutableString orderGroupName,
+                   @NotNull LongSet groupOrderIds, @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
+      setTimeStamp(timeStamp); setId(id); setTicker(ticker); setExchange(exchange); setOrderTypeName(orderTypeName);
+      setSize(size); setOrderTypeLevel1(orderTypeLevel1); setOrderTypeLevel2(orderTypeLevel2);
+      setOrderTypeLevel3(orderTypeLevel3); setPriceLevel1(priceLevel1); setPriceLevel2(priceLevel2);
+      setPriceLevel3(priceLevel3); setRelativeOrderParam(relativeOrderParam); setMeta(meta);
    }
 
-   public void setTicker(StringBuilder ticker) {
-      this.ticker.delete(0, this.ticker.length()).append(ticker == null ? "" : ticker);
+   @NotNull public long getTimeStamp() {
+      return timeStamp;
    }
 
-   public void setExchange(StringBuilder exchange) {
-      setSB(this.exchange, exchange);
+   public void setTimeStamp(@NotNull final long timeStamp) {
+      this.timeStamp = timeStamp;
    }
 
-   public void setOrderTypeName(StringBuilder orderTypeName) {
-      setSB(this.orderTypeName, orderTypeName);
+   @NotNull public MutableString getTicker() {
+      return ticker;
    }
 
-   public void setOrderTypeLevel1(OrderType orderTypeLevel) {
-      this.orderTypeLevel1 = orderTypeLevel == null ? OrderType.Default : orderTypeLevel;
+   public void setTicker(@NotNull MutableString ticker) {
+      this.ticker.delete(0, this.ticker.length()).append(ticker);
    }
 
-   public void setOrderTypeLevel2(OrderType orderTypeLevel) {
-      this.orderTypeLevel2 = orderTypeLevel == null ? OrderType.Default : orderTypeLevel;
-   }
-
-   public void setOrderTypeLevel3(OrderType orderTypeLevel) {
-      this.orderTypeLevel3 = orderTypeLevel == null ? OrderType.Default : orderTypeLevel;
-   }
-
-   public void setMeta(Map<? extends Object, ? extends Object> meta) {
-      setMap(this.meta, meta);
-   }
-
-   public void setContingentOrderTrigger(OrderStatus contingentOrderTrigger) {
-      this.contingentOrderTrigger = contingentOrderTrigger == null ? OrderStatus.Default : contingentOrderTrigger;
-   }
-
-   public void setContingentOrderActionType(ContingentOrderActionType contingentOrderActionType) {
-      this.contingentOrderActionType =
-            contingentOrderActionType == null ? ContingentOrderActionType.Default : contingentOrderActionType;
-   }
-
-   public void setOrderGroupName(String orderGroupName) {
-      setSB(this.orderGroupName, orderGroupName);
-   }
-
-   public void setContingentChildOrderIds(Set<Long> contingentChildOrderIds) {
+   public void setContingentChildOrderId(long contingentChildOrderIds) {
       setCollection(this.contingentChildOrderIds, contingentChildOrderIds);
    }
 
-   public void setContingentParentOrderIds(Set<Long> contingentParentOrderIds) {
+   public void setContingentParentOrderId(long contingentParentOrderIds) {
       setCollection(this.contingentParentOrderIds, contingentParentOrderIds);
    }
 
-   public void setContingentChildOrderId(Long contingentChildOrderIds) {
-      setCollection(this.contingentChildOrderIds, contingentChildOrderIds);
-   }
-
-   public void setContingentParentOrderId(Long contingentParentOrderIds) {
-      setCollection(this.contingentParentOrderIds, contingentParentOrderIds);
-   }
-
-   public void setGroupOrderType(GroupOrderType groupOrderType) {
-      this.groupOrderType = groupOrderType == null ? GroupOrderType.Default : groupOrderType;
-   }
-
-   public void setGroupOrderIds(Set<Long> groupOrderIds) {
-      setCollection(this.groupOrderIds, groupOrderIds);
-   }
-
-   public void setGroupOrderId(Long groupOrderId) {
+   public void setGroupOrderId(@NotNull long groupOrderId) {
       setCollection(this.groupOrderIds, groupOrderId);
    }
 
-   public void setTag(String tag) {
+   @NotNull public MutableString getExchange() {
+      return exchange;
+   }
+
+   public void setExchange(@NotNull MutableString exchange) {
+      setSB(this.exchange, exchange);
+   }
+
+   @NotNull public MutableString getOrderTypeName() {
+      return orderTypeName;
+   }
+
+   public void setOrderTypeName(@NotNull MutableString orderTypeName) {
+      setSB(this.orderTypeName, orderTypeName);
+   }
+
+   @NotNull public LongSet getContingentChildOrderIds() {
+      return contingentChildOrderIds;
+   }
+
+   public void setContingentChildOrderIds(@NotNull LongSet contingentChildOrderIds) {
+      setCollection(this.contingentChildOrderIds, contingentChildOrderIds);
+   }
+
+   @NotNull public LongSet getContingentParentOrderIds() {
+      return contingentParentOrderIds;
+   }
+
+   public void setContingentParentOrderIds(@NotNull LongSet contingentParentOrderIds) {
+      setCollection(this.contingentParentOrderIds, contingentParentOrderIds);
+   }
+
+   @NotNull public MutableString getOrderGroupName() {
+      return orderGroupName;
+   }
+
+   public void setOrderGroupName(@NotNull MutableString orderGroupName) {
+      setSB(this.orderGroupName, orderGroupName);
+   }
+
+   @NotNull public LongSet getGroupOrderIds() {
+      return groupOrderIds;
+   }
+
+   public void setGroupOrderIds(@NotNull LongSet groupOrderIds) {
+      setCollection(this.groupOrderIds, groupOrderIds);
+   }
+
+   @NotNull public MutableString getTag() {
+      return tag;
+   }
+
+   public void setTag(@NotNull MutableString tag) {
       setSB(this.tag, tag);
+   }
+
+   @NotNull public Object2ObjectMap getMeta() {
+      return meta;
+   }
+
+   public void setMeta(@NotNull Object2ObjectMap meta) {
+      setMap(this.meta, meta);
+   }
+
+   public long getId() {
+      return id;
+   }
+
+   public void setId(final long id) {
+      this.id = id;
+   }
+
+   public double getSize() {
+      return size;
+   }
+
+   public void setSize(final double size) {
+      this.size = size;
+   }
+
+   @NotNull public OrderType getOrderTypeLevel1() {
+      return orderTypeLevel1;
+   }
+
+   public void setOrderTypeLevel1(@NotNull OrderType orderTypeLevel1) {
+      this.orderTypeLevel1 = orderTypeLevel1;
+   }
+
+   public double getPriceLevel1() {
+      return priceLevel1;
+   }
+
+   public void setPriceLevel1(final double priceLevel1) {
+      this.priceLevel1 = priceLevel1;
+   }
+
+   @NotNull public OrderType getOrderTypeLevel2() {
+      return orderTypeLevel2;
+   }
+
+   public void setOrderTypeLevel2(@NotNull OrderType orderTypeLevel2) {
+      this.orderTypeLevel2 = orderTypeLevel2;
+   }
+
+   public double getPriceLevel2() {
+      return priceLevel2;
+   }
+
+   public void setPriceLevel2(final double priceLevel2) {
+      this.priceLevel2 = priceLevel2;
+   }
+
+   @NotNull public OrderType getOrderTypeLevel3() {
+      return orderTypeLevel3;
+   }
+
+   public void setOrderTypeLevel3(@NotNull OrderType orderTypeLevel3) {
+      this.orderTypeLevel3 = orderTypeLevel3;
+   }
+
+   public double getPriceLevel3() {
+      return priceLevel3;
+   }
+
+   public void setPriceLevel3(final double priceLevel3) {
+      this.priceLevel3 = priceLevel3;
+   }
+
+   @NotNull public RelativeOrderTriggerType getRelativeOrderTriggerType() {
+      return relativeOrderTriggerType;
+   }
+
+   public void setRelativeOrderTriggerType(@NotNull final RelativeOrderTriggerType relativeOrderTriggerType) {
+      this.relativeOrderTriggerType = relativeOrderTriggerType;
+   }
+
+   @NotNull public RelativeOrderAnchorType getRelativeOrderAnchorType() {
+      return relativeOrderAnchorType;
+   }
+
+   public void setRelativeOrderAnchorType(@NotNull final RelativeOrderAnchorType relativeOrderAnchorType) {
+      this.relativeOrderAnchorType = relativeOrderAnchorType;
+   }
+
+   @NotNull public RelativeParamOffsetType getRelativeParamOffsetType() {
+      return relativeParamOffsetType;
+   }
+
+   public void setRelativeParamOffsetType(@NotNull final RelativeParamOffsetType relativeParamOffsetType) {
+      this.relativeParamOffsetType = relativeParamOffsetType;
+   }
+
+   public double getRelativeOrderParam() {
+      return relativeOrderParam;
+   }
+
+   public void setRelativeOrderParam(final double relativeOrderParam) {
+      this.relativeOrderParam = relativeOrderParam;
+   }
+
+   @NotNull public OrderStatus getContingentOrderTrigger() {
+      return contingentOrderTrigger;
+   }
+
+   public void setContingentOrderTrigger(@NotNull OrderStatus contingentOrderTrigger) {
+      this.contingentOrderTrigger = contingentOrderTrigger;
+   }
+
+   @NotNull public ContingentOrderActionType getContingentOrderActionType() {
+      return contingentOrderActionType;
+   }
+
+   public void setContingentOrderActionType(@NotNull ContingentOrderActionType contingentOrderActionType) {
+      this.contingentOrderActionType = contingentOrderActionType;
+   }
+
+   @NotNull public GroupOrderType getGroupOrderType() {
+      return groupOrderType;
+   }
+
+   public void setGroupOrderType(@Nullable GroupOrderType groupOrderType) {
+      this.groupOrderType = groupOrderType;
    }
 }

@@ -1,61 +1,138 @@
 package com.susico.event;
 
+import it.unimi.dsi.fastutil.doubles.DoubleCollection;
+import it.unimi.dsi.fastutil.longs.LongCollection;
+import it.unimi.dsi.fastutil.longs.LongSet;
+import it.unimi.dsi.fastutil.longs.LongSets;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
+import it.unimi.dsi.lang.MutableString;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collection;
 import java.util.Map;
+
+import static com.susico.factories.MutableStringFactory.getMutableString;
 
 /**
  * Created by Suminda on 09/06/2014.
  */
 public class EventBase {
-   protected void setSB(StringBuilder sb, StringBuilder str) {
+   @NotNull protected final MutableString    NullString            = getMutableString();
+   @NotNull protected final LongSet          EmptyLongSet          = LongSets.EMPTY_SET;
+   @NotNull protected final Object2ObjectMap EmptyObject2ObjectMap = Object2ObjectMaps.EMPTY_MAP;
+
+   @NotNull protected long timeStamp = 0;
+
+   @NotNull public long getTimeStamp() {
+      return timeStamp;
+   }
+
+   public void setTimeStamp(@NotNull final long timeStamp) {
+      this.timeStamp = timeStamp;
+   }
+
+   protected void setSB(@NotNull MutableString sb, @NotNull StringBuilder str) {
+      sb.delete(0, sb.length()).append(str);
+   }
+
+   protected void setSB(@NotNull MutableString sb, @NotNull StringBuffer str) {
       sb.delete(0, sb.length()).append(str == null ? "" : str);
    }
 
-   protected void setSB(StringBuilder sb, StringBuffer str) {
+   protected void setSB(@NotNull MutableString sb, @NotNull String str) {
+      sb.delete(0, sb.length()).append(str);
+   }
+
+   protected void setSB(@NotNull MutableString sb, @NotNull MutableString str) {
+      sb.delete(0, sb.length()).append(str);
+   }
+
+
+   protected void setSB(@NotNull StringBuilder sb, @NotNull StringBuilder str) {
+      sb.delete(0, sb.length()).append(str);
+   }
+
+   protected void setSB(@NotNull StringBuilder sb, @NotNull StringBuffer str) {
       sb.delete(0, sb.length()).append(str == null ? "" : str);
    }
 
-   protected void setSB(StringBuilder sb, String str) {
-      sb.delete(0, sb.length()).append(str == null ? "" : str);
+   protected void setSB(@NotNull StringBuilder sb, @NotNull String str) {
+      sb.delete(0, sb.length()).append(str);
    }
 
-   protected void setSB(StringBuffer sb, StringBuilder str) {
-      sb.delete(0, sb.length()).append(str == null ? "" : str);
+   protected void setSB(@NotNull StringBuilder sb, @NotNull MutableString str) {
+      sb.delete(0, sb.length()).append(str);
    }
 
-   protected void setSB(StringBuffer sb, StringBuffer str) {
-      sb.delete(0, sb.length()).append(str == null ? "" : str);
+
+   protected void setSB(@NotNull StringBuffer sb, @NotNull StringBuilder str) {
+      sb.delete(0, sb.length()).append(str);
    }
 
-   protected void setSB(StringBuffer sb, String str) {
-      sb.delete(0, sb.length()).append(str == null ? "" : str);
+   protected void setSB(@NotNull StringBuffer sb, @NotNull StringBuffer str) {
+      sb.delete(0, sb.length()).append(str);
    }
 
-   protected <E1, E2 extends E1> void setCollection(Collection<E1> to, Collection<E2> from) {
+   protected void setSB(@NotNull StringBuffer sb, @NotNull String str) {
+      sb.delete(0, sb.length()).append(str);
+   }
+
+   protected void setSB(@NotNull StringBuffer sb, @NotNull MutableString str) {
+      sb.delete(0, sb.length()).append(str);
+   }
+
+   protected <E1, E2 extends E1> void setCollection(@NotNull Collection<E1> to, @NotNull Collection<E2> from) {
       to.clear();
 
-      if ( from != null ) to.addAll(from);
+      to.addAll(from);
    }
 
-   protected <E1, E2 extends E1> void setCollection(Collection<E1> to, E2 value) {
+   protected <E1, E2 extends E1> void setCollection(@NotNull Collection<E1> to, @NotNull E2 value) {
       to.clear();
 
-      if ( value != null ) to.add(value);
+      to.add(value);
    }
 
-   protected <K1, K2 extends K1, V1, V2 extends V1> void setMap(Map<K1, V1> to, Map<K2, V2> from) {
+   protected void setLongCollection(@NotNull LongCollection to, long value) {
       to.clear();
 
-      if ( from != null ) to.putAll(from);
+      to.add(value);
    }
 
-   protected <K1, K2 extends K1, V1, V2 extends V1> void setMap(Map<K1, V1> to, Map.Entry<K2, V2> from) {
-      if ( from != null ) setMap(to, from.getKey(), from.getValue());
-   }
-
-   protected <K1, K2 extends K1, V1, V2 extends V1> void setMap(Map<K1, V1> to, K2 key, V2 value) {
+   protected void setLongCollection(@NotNull LongCollection to, @NotNull LongCollection from) {
       to.clear();
 
-      if ( key != null && value != null ) to.put(key, value);
+      to.addAll(from);
+   }
+
+   protected void setDoubleCollection(@NotNull DoubleCollection to, double value) {
+      to.clear();
+
+      to.add(value);
+   }
+
+   protected void setDoubleCollection(@NotNull DoubleCollection to, @NotNull DoubleCollection from) {
+      to.clear();
+
+      to.addAll(from);
+   }
+
+   protected <K1, K2 extends K1, V1, V2 extends V1> void setMap(@NotNull Map<K1, V1> to, @NotNull Map<K2, V2> from) {
+      to.clear();
+
+      to.putAll(from);
+   }
+
+   protected <K1, K2 extends K1, V1, V2 extends V1> void setMap(@NotNull Map<K1, V1> to,
+                                                                @NotNull Map.Entry<K2, V2> from) {
+      setMap(to, from.getKey(), from.getValue());
+   }
+
+   protected <K1, K2 extends K1, V1, V2 extends V1> void setMap(@NotNull Map<K1, V1> to, @NotNull K2 key,
+                                                                @NotNull V2 value) {
+      to.clear();
+
+      to.put(key, value);
    }
 }
