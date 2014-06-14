@@ -33,13 +33,17 @@ public enum OrderTimeInForce {
     */
    OnMarketClose,
    /**
+    * Close of AM session (Japan)
+    */
+   OnAMClose,
+   /**
     * On Open
     */
    OnMarketOpen,
    /**
-    * Opening or clos
+    * Opening of PM session
     */
-   Auction,
+   OnPMOpen,
    /**
     * Default
     */

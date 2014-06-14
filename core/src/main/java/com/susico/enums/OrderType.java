@@ -19,7 +19,11 @@ public enum OrderType {
    /**
     * Offset order (Mainly for Market Close)
     */
-   OffsetOrder,
+   Imbalance,
+   /**
+    * Relative
+    */
+   Relative,
    /**
     * Default
     */

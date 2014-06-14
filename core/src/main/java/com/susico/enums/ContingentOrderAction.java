@@ -3,7 +3,7 @@ package com.susico.enums;
 /**
  * Created by Suminda on 09/06/2014.
  */
-public enum ContingentOrderActionType {
+public enum ContingentOrderAction {
    /**
     * One Cancels Other
     */
