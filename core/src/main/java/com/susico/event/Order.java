@@ -1,9 +1,9 @@
 package com.susico.event;
 
 import com.susico.enums.ContingentOrderAction;
+import com.susico.enums.OrderParamType;
 import com.susico.enums.OrderStatus;
 import com.susico.enums.OrderTimeInForce;
-import com.susico.enums.OrderType;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.lang.MutableString;
@@ -17,20 +17,23 @@ import static com.susico.factories.MutableStringFactory.getMutableString;
  * Created by Suminda on 09/06/2014.
  */
 public class Order extends EventBase {
-   @NotNull private       long             id            = 0;
-   @NotNull private final MutableString    ticker        = getMutableString();
-   @NotNull private final MutableString    exchange      = getMutableString();
-   @NotNull private final MutableString    orderTypeName = getMutableString();
-   @NotNull private       double           size          = Double.NaN;
-   @NotNull private       OrderTimeInForce timeInForce   = OrderTimeInForce.Default;
+   @NotNull private       long             id                   = 0;
+   @NotNull private final MutableString    ticker               = getMutableString();
+   @NotNull private final MutableString    exchange             = getMutableString();
+   @NotNull private final MutableString    orderTypeName        = getMutableString();
+   @NotNull private       double           size                 = Double.NaN;
+   @NotNull private       OrderTimeInForce timeInForce          = OrderTimeInForce.Default;
+   @NotNull private       long             timeInForceDateParam = 0;
+   @NotNull private       long             minQuantity          = 0;
+
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull private OrderType orderTypeLevel1 = OrderType.Default;
-   @NotNull private double    priceLevel1     = Double.NaN;
-   @NotNull private OrderType orderTypeLevel2 = OrderType.Default;
-   @NotNull private double    priceLevel2     = Double.NaN;
-   @NotNull private OrderType orderTypeLevel3 = OrderType.Default;
-   @NotNull private double    priceLevel3     = Double.NaN;
+   @NotNull private OrderParamType orderParamTypeLevel1 = OrderParamType.Default;
+   @NotNull private double         paramLevel1          = Double.NaN;
+   @NotNull private OrderParamType orderParamTypeLevel2 = OrderParamType.Default;
+   @NotNull private double         paramLevel2          = Double.NaN;
+   @NotNull private OrderParamType orderParamTypeLevel3 = OrderParamType.Default;
+   @NotNull private double         paramLevel3          = Double.NaN;
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull private       OrderStatus           contingentOrderTrigger = OrderStatus.Default;
@@ -44,16 +47,17 @@ public class Order extends EventBase {
    @NotNull private final Object2ObjectMap meta = getObjectObjectMap();
 
    public void set(long timeStamp, long id, @NotNull MutableString ticker, @NotNull MutableString exchange,
-                   @NotNull MutableString orderTypeName, double size, @NotNull OrderType orderTypeLevel1,
-                   double priceLevel1, @NotNull OrderType orderTypeLevel2, double priceLevel2,
-                   @NotNull OrderType orderTypeLevel3, double priceLevel3, @NotNull OrderStatus contingentOrderTrigger,
-                   @NotNull ContingentOrderAction contingentOrderAction, @NotNull LongSet contingentChildOrderIds,
-                   @NotNull LongSet contingentParentOrderIds, @NotNull MutableString orderGroupName,
-                   @NotNull LongSet groupOrderIds, @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
+                   @NotNull MutableString orderTypeName, double size, @NotNull OrderParamType orderParamTypeLevel1,
+                   double priceLevel1, @NotNull OrderParamType orderParamTypeLevel2, double priceLevel2,
+                   @NotNull OrderParamType orderParamTypeLevel3, double priceLevel3,
+                   @NotNull OrderStatus contingentOrderTrigger, @NotNull ContingentOrderAction contingentOrderAction,
+                   @NotNull LongSet contingentChildOrderIds, @NotNull LongSet contingentParentOrderIds,
+                   @NotNull MutableString orderGroupName, @NotNull LongSet groupOrderIds, @NotNull MutableString tag,
+                   @NotNull Object2ObjectMap meta) {
       setTimeStamp(timeStamp); setId(id); setTicker(ticker); setExchange(exchange); setOrderTypeName(orderTypeName);
-      setSize(size); setOrderTypeLevel1(orderTypeLevel1); setOrderTypeLevel2(orderTypeLevel2);
-      setOrderTypeLevel3(orderTypeLevel3); setPriceLevel1(priceLevel1); setPriceLevel2(priceLevel2);
-      setPriceLevel3(priceLevel3); setMeta(meta);
+      setSize(size); setOrderParamTypeLevel1(orderParamTypeLevel1); setOrderParamTypeLevel2(orderParamTypeLevel2);
+      setOrderParamTypeLevel3(orderParamTypeLevel3); setParamLevel1(priceLevel1); setParamLevel2(priceLevel2);
+      setParamLevel3(priceLevel3); setMeta(meta);
    }
 
    @NotNull public MutableString getTicker() {
@@ -100,6 +104,14 @@ public class Order extends EventBase {
       setSB(this.tag, tag);
    }
 
+   @NotNull public long getTimeInForceDateParam() {
+      return timeInForceDateParam;
+   }
+
+   public void setTimeInForceDateParam(@NotNull final long timeInForceDateParam) {
+      this.timeInForceDateParam = timeInForceDateParam;
+   }
+
    @NotNull public Object2ObjectMap getMeta() {
       return meta;
    }
@@ -124,52 +136,52 @@ public class Order extends EventBase {
       this.size = size;
    }
 
-   @NotNull public OrderType getOrderTypeLevel1() {
-      return orderTypeLevel1;
+   @NotNull public OrderParamType getOrderParamTypeLevel1() {
+      return orderParamTypeLevel1;
    }
 
-   public void setOrderTypeLevel1(@NotNull OrderType orderTypeLevel1) {
-      this.orderTypeLevel1 = orderTypeLevel1;
+   public void setOrderParamTypeLevel1(@NotNull OrderParamType orderParamTypeLevel1) {
+      this.orderParamTypeLevel1 = orderParamTypeLevel1;
    }
 
-   public double getPriceLevel1() {
-      return priceLevel1;
+   public double getParamLevel1() {
+      return paramLevel1;
    }
 
-   public void setPriceLevel1(final double priceLevel1) {
-      this.priceLevel1 = priceLevel1;
+   public void setParamLevel1(final double paramLevel1) {
+      this.paramLevel1 = paramLevel1;
    }
 
-   @NotNull public OrderType getOrderTypeLevel2() {
-      return orderTypeLevel2;
+   @NotNull public OrderParamType getOrderParamTypeLevel2() {
+      return orderParamTypeLevel2;
    }
 
-   public void setOrderTypeLevel2(@NotNull OrderType orderTypeLevel2) {
-      this.orderTypeLevel2 = orderTypeLevel2;
+   public void setOrderParamTypeLevel2(@NotNull OrderParamType orderParamTypeLevel2) {
+      this.orderParamTypeLevel2 = orderParamTypeLevel2;
    }
 
-   public double getPriceLevel2() {
-      return priceLevel2;
+   public double getParamLevel2() {
+      return paramLevel2;
    }
 
-   public void setPriceLevel2(final double priceLevel2) {
-      this.priceLevel2 = priceLevel2;
+   public void setParamLevel2(final double paramLevel2) {
+      this.paramLevel2 = paramLevel2;
    }
 
-   @NotNull public OrderType getOrderTypeLevel3() {
-      return orderTypeLevel3;
+   @NotNull public OrderParamType getOrderParamTypeLevel3() {
+      return orderParamTypeLevel3;
    }
 
-   public void setOrderTypeLevel3(@NotNull OrderType orderTypeLevel3) {
-      this.orderTypeLevel3 = orderTypeLevel3;
+   public void setOrderParamTypeLevel3(@NotNull OrderParamType orderParamTypeLevel3) {
+      this.orderParamTypeLevel3 = orderParamTypeLevel3;
    }
 
-   public double getPriceLevel3() {
-      return priceLevel3;
+   public double getParamLevel3() {
+      return paramLevel3;
    }
 
-   public void setPriceLevel3(final double priceLevel3) {
-      this.priceLevel3 = priceLevel3;
+   public void setParamLevel3(final double paramLevel3) {
+      this.paramLevel3 = paramLevel3;
    }
 
    @NotNull public OrderStatus getContingentOrderTrigger() {

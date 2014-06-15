@@ -32,53 +32,27 @@ public class EventBase {
       this.timeStamp = timeStamp;
    }
 
-   protected void setSB(@NotNull MutableString sb, @NotNull StringBuilder str) {
+   protected void setSB(@NotNull MutableString sb, @NotNull CharSequence str) {
       sb.delete(0, sb.length()).append(str);
-   }
-
-   protected void setSB(@NotNull MutableString sb, @NotNull StringBuffer str) {
-      sb.delete(0, sb.length()).append(str == null ? "" : str);
    }
 
    protected void setSB(@NotNull MutableString sb, @NotNull String str) {
       sb.delete(0, sb.length()).append(str);
    }
 
-   protected void setSB(@NotNull MutableString sb, @NotNull MutableString str) {
+   protected void setSB(@NotNull StringBuilder sb, @NotNull CharSequence str) {
       sb.delete(0, sb.length()).append(str);
-   }
-
-
-   protected void setSB(@NotNull StringBuilder sb, @NotNull StringBuilder str) {
-      sb.delete(0, sb.length()).append(str);
-   }
-
-   protected void setSB(@NotNull StringBuilder sb, @NotNull StringBuffer str) {
-      sb.delete(0, sb.length()).append(str == null ? "" : str);
    }
 
    protected void setSB(@NotNull StringBuilder sb, @NotNull String str) {
       sb.delete(0, sb.length()).append(str);
    }
 
-   protected void setSB(@NotNull StringBuilder sb, @NotNull MutableString str) {
-      sb.delete(0, sb.length()).append(str);
-   }
-
-
-   protected void setSB(@NotNull StringBuffer sb, @NotNull StringBuilder str) {
-      sb.delete(0, sb.length()).append(str);
-   }
-
-   protected void setSB(@NotNull StringBuffer sb, @NotNull StringBuffer str) {
+   protected void setSB(@NotNull StringBuffer sb, @NotNull CharSequence str) {
       sb.delete(0, sb.length()).append(str);
    }
 
    protected void setSB(@NotNull StringBuffer sb, @NotNull String str) {
-      sb.delete(0, sb.length()).append(str);
-   }
-
-   protected void setSB(@NotNull StringBuffer sb, @NotNull MutableString str) {
       sb.delete(0, sb.length()).append(str);
    }
 

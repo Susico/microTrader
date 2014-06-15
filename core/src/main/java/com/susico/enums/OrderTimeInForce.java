@@ -9,6 +9,10 @@ public enum OrderTimeInForce {
     */
    Day,
    /**
+    * Session
+    */
+   Session,
+   /**
     * Good Till Ccancelled
     */
    GTC,
@@ -25,7 +29,7 @@ public enum OrderTimeInForce {
     */
    IoC,
    /**
-    * All or None
+    * All or None (wait until all can be filled)
     */
    AoN,
    /**
@@ -37,6 +41,10 @@ public enum OrderTimeInForce {
     */
    OnAMClose,
    /**
+    * Close of session
+    */
+   OnSessionClose,
+   /**
     * On Open
     */
    OnMarketOpen,
@@ -44,6 +52,10 @@ public enum OrderTimeInForce {
     * Opening of PM session
     */
    OnPMOpen,
+   /**
+    * On session open
+    */
+   OnSessionOpen,
    /**
     * Default
     */
