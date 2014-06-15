@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Created by Suminda on 14/06/2014.
  */
-public class MutableStringFactory {
+public final class MutableStringFactory {
    @NotNull public static MutableString getMutableString() {
       return new MutableString();
    }

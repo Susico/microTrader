@@ -2,7 +2,6 @@ package com.susico.event;
 
 import com.susico.enums.ContingentOrderAction;
 import com.susico.enums.OrderParamType;
-import com.susico.enums.OrderStatus;
 import com.susico.enums.OrderTimeInForce;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
@@ -17,6 +16,7 @@ import static com.susico.factories.MutableStringFactory.getMutableString;
  * Created by Suminda on 09/06/2014.
  */
 public class Order extends EventBase {
+   // NB: @NotNull ofr primitive type is for alignment
    @NotNull private       long             id                   = 0;
    @NotNull private final MutableString    ticker               = getMutableString();
    @NotNull private final MutableString    exchange             = getMutableString();
@@ -26,8 +26,9 @@ public class Order extends EventBase {
    @NotNull private       long             timeInForceDateParam = 0;
    @NotNull private       long             minQuantity          = 0;
 
-
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private final MutableString currency = getMutableString();
+
    @NotNull private OrderParamType orderParamTypeLevel1 = OrderParamType.Default;
    @NotNull private double         paramLevel1          = Double.NaN;
    @NotNull private OrderParamType orderParamTypeLevel2 = OrderParamType.Default;
@@ -36,9 +37,8 @@ public class Order extends EventBase {
    @NotNull private double         paramLevel3          = Double.NaN;
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull private       OrderStatus           contingentOrderTrigger = OrderStatus.Default;
-   @NotNull private       ContingentOrderAction contingentOrderAction  = ContingentOrderAction.Default;
-   @NotNull private final LongSet               contingentOrderIds     = getLongSet();
+   @NotNull private       ContingentOrderAction contingentOrderAction = ContingentOrderAction.Default;
+   @NotNull private final LongSet               contingentOrderIds    = getLongSet();
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull private final MutableString tag = getMutableString();
@@ -50,14 +50,47 @@ public class Order extends EventBase {
                    @NotNull MutableString orderTypeName, double size, @NotNull OrderParamType orderParamTypeLevel1,
                    double priceLevel1, @NotNull OrderParamType orderParamTypeLevel2, double priceLevel2,
                    @NotNull OrderParamType orderParamTypeLevel3, double priceLevel3,
-                   @NotNull OrderStatus contingentOrderTrigger, @NotNull ContingentOrderAction contingentOrderAction,
-                   @NotNull LongSet contingentChildOrderIds, @NotNull LongSet contingentParentOrderIds,
-                   @NotNull MutableString orderGroupName, @NotNull LongSet groupOrderIds, @NotNull MutableString tag,
-                   @NotNull Object2ObjectMap meta) {
+                   @NotNull ContingentOrderAction contingentOrderAction, @NotNull LongSet contingentOrderIds,
+                   @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
+      set(timeStamp, id, ticker, exchange, orderTypeName, size, NullString, orderParamTypeLevel1, priceLevel1,
+          orderParamTypeLevel2, priceLevel2, orderParamTypeLevel3, priceLevel3, contingentOrderAction,
+          contingentOrderIds, tag, meta);
+   }
+
+   public void set(long timeStamp, long id, @NotNull MutableString ticker, @NotNull MutableString exchange,
+                   @NotNull MutableString orderTypeName, double size, @NotNull MutableString currency,
+                   @NotNull OrderParamType orderParamTypeLevel1, double priceLevel1,
+                   @NotNull OrderParamType orderParamTypeLevel2, double priceLevel2,
+                   @NotNull OrderParamType orderParamTypeLevel3, double priceLevel3,
+                   @NotNull ContingentOrderAction contingentOrderAction, @NotNull LongSet contingentOrderIds,
+                   @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
       setTimeStamp(timeStamp); setId(id); setTicker(ticker); setExchange(exchange); setOrderTypeName(orderTypeName);
-      setSize(size); setOrderParamTypeLevel1(orderParamTypeLevel1); setOrderParamTypeLevel2(orderParamTypeLevel2);
-      setOrderParamTypeLevel3(orderParamTypeLevel3); setParamLevel1(priceLevel1); setParamLevel2(priceLevel2);
-      setParamLevel3(priceLevel3); setMeta(meta);
+      setSize(size); setCurrency(currency); setOrderParamTypeLevel1(orderParamTypeLevel1);
+      setOrderParamTypeLevel2(orderParamTypeLevel2); setOrderParamTypeLevel3(orderParamTypeLevel3);
+      setParamLevel1(priceLevel1); setParamLevel2(priceLevel2); setParamLevel3(priceLevel3);
+      setContingentOrderAction(contingentOrderAction); setContingentOrderIds(contingentOrderIds); setTag(tag);
+      setMeta(meta);
+   }
+
+   public void set(long timeStamp, long id, @NotNull MutableString ticker, @NotNull MutableString exchange,
+                   @NotNull MutableString orderTypeName, double size, @NotNull MutableString currency,
+                   @NotNull OrderParamType orderParamTypeLevel1, double priceLevel1,
+                   @NotNull OrderParamType orderParamTypeLevel2, double priceLevel2,
+                   @NotNull OrderParamType orderParamTypeLevel3, double priceLevel3, @NotNull MutableString tag,
+                   @NotNull Object2ObjectMap meta) {
+      set(timeStamp, id, ticker, exchange, orderTypeName, size, currency, orderParamTypeLevel1, priceLevel1,
+          orderParamTypeLevel2, priceLevel2, orderParamTypeLevel3, priceLevel3, ContingentOrderAction.Default,
+          EmptyLongSet, tag, meta);
+   }
+
+   public void set(long timeStamp, long id, @NotNull MutableString ticker, @NotNull MutableString exchange,
+                   @NotNull MutableString orderTypeName, double size, @NotNull OrderParamType orderParamTypeLevel1,
+                   double priceLevel1, @NotNull OrderParamType orderParamTypeLevel2, double priceLevel2,
+                   @NotNull OrderParamType orderParamTypeLevel3, double priceLevel3, @NotNull MutableString tag,
+                   @NotNull Object2ObjectMap meta) {
+      set(timeStamp, id, ticker, exchange, orderTypeName, size, NullString, orderParamTypeLevel1, priceLevel1,
+          orderParamTypeLevel2, priceLevel2, orderParamTypeLevel3, priceLevel3, ContingentOrderAction.Default,
+          EmptyLongSet, tag, meta);
    }
 
    @NotNull public MutableString getTicker() {
@@ -68,8 +101,8 @@ public class Order extends EventBase {
       this.ticker.delete(0, this.ticker.length()).append(ticker);
    }
 
-   public void setContingentChildOrderId(long contingentChildOrderIds) {
-      setCollection(this.contingentOrderIds, contingentChildOrderIds);
+   public void setContingentOrderId(long contingentOrderIds) {
+      setCollection(this.contingentOrderIds, contingentOrderIds);
    }
 
    @NotNull public MutableString getExchange() {
@@ -77,7 +110,7 @@ public class Order extends EventBase {
    }
 
    public void setExchange(@NotNull MutableString exchange) {
-      setSB(this.exchange, exchange);
+      setStr(this.exchange, exchange);
    }
 
    @NotNull public MutableString getOrderTypeName() {
@@ -85,7 +118,7 @@ public class Order extends EventBase {
    }
 
    public void setOrderTypeName(@NotNull MutableString orderTypeName) {
-      setSB(this.orderTypeName, orderTypeName);
+      setStr(this.orderTypeName, orderTypeName);
    }
 
    @NotNull public LongSet getContingentOrderIds() {
@@ -101,7 +134,7 @@ public class Order extends EventBase {
    }
 
    public void setTag(@NotNull MutableString tag) {
-      setSB(this.tag, tag);
+      setStr(this.tag, tag);
    }
 
    @NotNull public long getTimeInForceDateParam() {
@@ -184,14 +217,6 @@ public class Order extends EventBase {
       this.paramLevel3 = paramLevel3;
    }
 
-   @NotNull public OrderStatus getContingentOrderTrigger() {
-      return contingentOrderTrigger;
-   }
-
-   public void setContingentOrderTrigger(@NotNull OrderStatus contingentOrderTrigger) {
-      this.contingentOrderTrigger = contingentOrderTrigger;
-   }
-
    @NotNull public ContingentOrderAction getContingentOrderAction() {
       return contingentOrderAction;
    }
@@ -206,5 +231,21 @@ public class Order extends EventBase {
 
    public void setTimeInForce(@NotNull final OrderTimeInForce timeInForce) {
       this.timeInForce = timeInForce;
+   }
+
+   @NotNull public long getMinQuantity() {
+      return minQuantity;
+   }
+
+   public void setMinQuantity(@NotNull final long minQuantity) {
+      this.minQuantity = minQuantity;
+   }
+
+   @NotNull public MutableString getCurrency() {
+      return currency;
+   }
+
+   public void setCurrency(@NotNull final MutableString currency) {
+      setStr(this.currency, currency);
    }
 }

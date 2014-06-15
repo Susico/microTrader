@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Created by Suminda on 14/06/2014.
  */
-public class CollectionFactory {
+public final class CollectionFactory {
    @NotNull public static LongSet getLongSet() {
       return new LongArraySet();
    }

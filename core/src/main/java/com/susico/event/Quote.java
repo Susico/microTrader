@@ -33,37 +33,38 @@ public class Quote extends EventBase {
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price, double size,
                    @NotNull MutableString currency, @NotNull MutableString marketMaker, long rank, double best,
-                   double NBBO, QuoteLevel quoteLevel, @NotNull Object2ObjectMap meta) {
+                   double NBBO, @NotNull QuoteLevel quoteLevel, @NotNull Object2ObjectMap meta) {
       set(timeStamp, ticker, side, price, PriceConvention.Price, size, currency, marketMaker, rank, best, NBBO,
           quoteLevel, meta);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size, @NotNull MutableString currency,
-                   @NotNull MutableString marketMaker, long rank, double best, double NBBO, QuoteLevel quoteLevel,
-                   @NotNull Object2ObjectMap meta) {
+                   @NotNull PriceConvention priceConvention, double size, @NotNull MutableString currency,
+                   @NotNull MutableString marketMaker, long rank, double best, double NBBO,
+                   @NotNull QuoteLevel quoteLevel, @NotNull Object2ObjectMap meta) {
       setTimeStamp(timeStamp); setTicker(ticker); setSide(side); setPrice(price); setPriceConvention(priceConvention);
       setSize(size); setCurrency(currency); setMarketMaker(marketMaker); setRank(rank); setBestBidOffer(best);
       setNBBO(NBBO); setQuoteLevel(quoteLevel); setMeta(meta);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size, @NotNull MutableString currency,
-                   @NotNull MutableString marketMaker, long rank, double best, double NBBO, QuoteLevel quoteLevel) {
+                   @NotNull PriceConvention priceConvention, double size, @NotNull MutableString currency,
+                   @NotNull MutableString marketMaker, long rank, double best, double NBBO,
+                   @NotNull QuoteLevel quoteLevel) {
       set(timeStamp, ticker, side, price, priceConvention, size, currency, marketMaker, rank, best, NBBO, quoteLevel,
           null);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price, double size,
                    @NotNull MutableString currency, @NotNull MutableString marketMaker, long rank, double best,
-                   double NBBO, QuoteLevel quoteLevel) {
+                   double NBBO, @NotNull QuoteLevel quoteLevel) {
       set(timeStamp, ticker, side, price, PriceConvention.Price, size, currency, marketMaker, rank, best, NBBO,
           quoteLevel, null);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size, @NotNull MutableString currency,
-                   @NotNull MutableString marketMaker, long rank, QuoteLevel quoteLevel,
+                   @NotNull PriceConvention priceConvention, double size, @NotNull MutableString currency,
+                   @NotNull MutableString marketMaker, long rank, @NotNull QuoteLevel quoteLevel,
                    @NotNull Object2ObjectMap meta) {
       set(timeStamp, ticker, side, price, priceConvention, size, currency, marketMaker, rank, Double.NaN, Double.NaN,
           quoteLevel, meta);
@@ -71,27 +72,27 @@ public class Quote extends EventBase {
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price, double size,
                    @NotNull MutableString currency, @NotNull MutableString marketMaker, long rank,
-                   QuoteLevel quoteLevel, @NotNull Object2ObjectMap meta) {
+                   @NotNull QuoteLevel quoteLevel, @NotNull Object2ObjectMap meta) {
       set(timeStamp, ticker, side, price, PriceConvention.Price, size, currency, marketMaker, rank, Double.NaN,
           Double.NaN, quoteLevel, meta);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size, @NotNull MutableString currency,
-                   @NotNull MutableString marketMaker, long rank, QuoteLevel quoteLevel) {
+                   @NotNull PriceConvention priceConvention, double size, @NotNull MutableString currency,
+                   @NotNull MutableString marketMaker, long rank, @NotNull QuoteLevel quoteLevel) {
       set(timeStamp, ticker, side, price, priceConvention, size, currency, marketMaker, rank, Double.NaN, Double.NaN,
           quoteLevel, null);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price, double size,
                    @NotNull MutableString currency, @NotNull MutableString marketMaker, long rank,
-                   QuoteLevel quoteLevel) {
+                   @NotNull QuoteLevel quoteLevel) {
       set(timeStamp, ticker, side, price, PriceConvention.Price, size, currency, marketMaker, rank, Double.NaN,
           Double.NaN, quoteLevel, null);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size, @NotNull MutableString currency,
+                   @NotNull PriceConvention priceConvention, double size, @NotNull MutableString currency,
                    @NotNull Object2ObjectMap meta) {
       set(timeStamp, ticker, side, price, priceConvention, size, currency, NullString, -1, Double.NaN, Double.NaN,
           QuoteLevel.Best, meta);
@@ -104,7 +105,7 @@ public class Quote extends EventBase {
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size, @NotNull MutableString currency) {
+                   @NotNull PriceConvention priceConvention, double size, @NotNull MutableString currency) {
       set(timeStamp, ticker, side, price, priceConvention, size, currency, NullString, -1, Double.NaN, Double.NaN,
           QuoteLevel.Best, null);
    }
@@ -116,54 +117,55 @@ public class Quote extends EventBase {
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price, double size,
-                   @NotNull MutableString marketMaker, long rank, double best, double NBBO, QuoteLevel quoteLevel,
-                   @NotNull Object2ObjectMap meta) {
+                   @NotNull MutableString marketMaker, long rank, double best, double NBBO,
+                   @NotNull QuoteLevel quoteLevel, @NotNull Object2ObjectMap meta) {
       set(timeStamp, ticker, side, price, PriceConvention.Price, size, NullString, marketMaker, rank, best, NBBO,
           quoteLevel, meta);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size, @NotNull MutableString marketMaker, long rank,
-                   double best, double NBBO, QuoteLevel quoteLevel) {
+                   @NotNull PriceConvention priceConvention, double size, @NotNull MutableString marketMaker, long rank,
+                   double best, double NBBO, @NotNull QuoteLevel quoteLevel) {
       set(timeStamp, ticker, side, price, priceConvention, size, NullString, marketMaker, rank, best, NBBO, quoteLevel,
           null);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price, double size,
-                   @NotNull MutableString marketMaker, long rank, double best, double NBBO, QuoteLevel quoteLevel) {
+                   @NotNull MutableString marketMaker, long rank, double best, double NBBO,
+                   @NotNull QuoteLevel quoteLevel) {
       set(timeStamp, ticker, side, price, PriceConvention.Price, size, NullString, marketMaker, rank, best, NBBO,
           quoteLevel, null);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size, @NotNull MutableString marketMaker, long rank,
-                   QuoteLevel quoteLevel, @NotNull Object2ObjectMap meta) {
+                   @NotNull PriceConvention priceConvention, double size, @NotNull MutableString marketMaker, long rank,
+                   @NotNull QuoteLevel quoteLevel, @NotNull Object2ObjectMap meta) {
       set(timeStamp, ticker, side, price, priceConvention, size, NullString, marketMaker, rank, Double.NaN, Double.NaN,
           quoteLevel, meta);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price, double size,
-                   @NotNull MutableString marketMaker, long rank, QuoteLevel quoteLevel,
+                   @NotNull MutableString marketMaker, long rank, @NotNull QuoteLevel quoteLevel,
                    @NotNull Object2ObjectMap meta) {
       set(timeStamp, ticker, side, price, PriceConvention.Price, size, NullString, marketMaker, rank, Double.NaN,
           Double.NaN, quoteLevel, meta);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size, @NotNull MutableString marketMaker, long rank,
-                   QuoteLevel quoteLevel) {
+                   @NotNull PriceConvention priceConvention, double size, @NotNull MutableString marketMaker, long rank,
+                   @NotNull QuoteLevel quoteLevel) {
       set(timeStamp, ticker, side, price, priceConvention, size, NullString, marketMaker, rank, Double.NaN, Double.NaN,
           quoteLevel, null);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price, double size,
-                   @NotNull MutableString marketMaker, long rank, QuoteLevel quoteLevel) {
+                   @NotNull MutableString marketMaker, long rank, @NotNull QuoteLevel quoteLevel) {
       set(timeStamp, ticker, side, price, PriceConvention.Price, size, NullString, marketMaker, rank, Double.NaN,
           Double.NaN, quoteLevel, null);
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size, @NotNull Object2ObjectMap meta) {
+                   @NotNull PriceConvention priceConvention, double size, @NotNull Object2ObjectMap meta) {
       set(timeStamp, ticker, side, price, priceConvention, size, NullString, NullString, -1, Double.NaN, Double.NaN,
           QuoteLevel.Best, meta);
    }
@@ -175,7 +177,7 @@ public class Quote extends EventBase {
    }
 
    public void set(long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
-                   PriceConvention priceConvention, double size) {
+                   @NotNull PriceConvention priceConvention, double size) {
       set(timeStamp, ticker, side, price, priceConvention, size, NullString, NullString, -1, Double.NaN, Double.NaN,
           QuoteLevel.Best, null);
    }
@@ -191,7 +193,7 @@ public class Quote extends EventBase {
    }
 
    public void setTicker(@NotNull MutableString ticker) {
-      setSB(this.ticker, ticker);
+      setStr(this.ticker, ticker);
    }
 
    @NotNull public QuoteSide getSide() {
@@ -207,7 +209,7 @@ public class Quote extends EventBase {
    }
 
    public void setMarketMaker(@NotNull MutableString marketMaker) {
-      setSB(this.marketMaker, marketMaker);
+      setStr(this.marketMaker, marketMaker);
    }
 
    @NotNull public double getPrice() {
@@ -239,7 +241,7 @@ public class Quote extends EventBase {
    }
 
    public void setCurrency(@NotNull MutableString currency) {
-      setSB(this.currency, currency);
+      setStr(this.currency, currency);
    }
 
    @NotNull public long getRank() {

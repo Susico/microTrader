@@ -32,27 +32,27 @@ public class EventBase {
       this.timeStamp = timeStamp;
    }
 
-   protected void setSB(@NotNull MutableString sb, @NotNull CharSequence str) {
+   protected void setStr(@NotNull MutableString sb, @NotNull CharSequence str) {
       sb.delete(0, sb.length()).append(str);
    }
 
-   protected void setSB(@NotNull MutableString sb, @NotNull String str) {
+   protected void setStr(@NotNull MutableString sb, @NotNull String str) {
       sb.delete(0, sb.length()).append(str);
    }
 
-   protected void setSB(@NotNull StringBuilder sb, @NotNull CharSequence str) {
+   protected void setStr(@NotNull StringBuilder sb, @NotNull CharSequence str) {
       sb.delete(0, sb.length()).append(str);
    }
 
-   protected void setSB(@NotNull StringBuilder sb, @NotNull String str) {
+   protected void setStr(@NotNull StringBuilder sb, @NotNull String str) {
       sb.delete(0, sb.length()).append(str);
    }
 
-   protected void setSB(@NotNull StringBuffer sb, @NotNull CharSequence str) {
+   protected void setStr(@NotNull StringBuffer sb, @NotNull CharSequence str) {
       sb.delete(0, sb.length()).append(str);
    }
 
-   protected void setSB(@NotNull StringBuffer sb, @NotNull String str) {
+   protected void setStr(@NotNull StringBuffer sb, @NotNull String str) {
       sb.delete(0, sb.length()).append(str);
    }
 

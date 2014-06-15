@@ -9,7 +9,8 @@ public enum OrderStatus {
     */
    Submitted,
    /**
-    * Part filled
+    * Part filled and executing. Even if cancelled or rejected this should be called for working orders. Final can be
+    * Competed*, Rejected*, and Cancelled*
     */
    PartialFill,
    /**
@@ -17,7 +18,7 @@ public enum OrderStatus {
     */
    CompletedFilled,
    /**
-    * Completed with only a partial fill
+    * Completed with only a partial fill due to TIF
     */
    CompletedPartialFill,
    /**
@@ -29,7 +30,7 @@ public enum OrderStatus {
     */
    RejectedNotFilled,
    /**
-    * Part rejected
+    * Part rejected with partial fill
     */
    RejectedPartialFill,
    /**
