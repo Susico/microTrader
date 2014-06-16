@@ -25,7 +25,7 @@ public enum PriceConvention {
     */
    Spread,
    /**
-    * Default or not set
+    * Model price
     */
-   Default,
+   Model,
 }

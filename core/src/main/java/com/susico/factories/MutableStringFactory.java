@@ -10,4 +10,12 @@ public final class MutableStringFactory {
    @NotNull public static MutableString getMutableString() {
       return new MutableString();
    }
+
+   @NotNull public static MutableString getMutableString(CharSequence cseq) {
+      return new MutableString(cseq);
+   }
+
+   @NotNull public static MutableString getMutableString(String s) {
+      return new MutableString(s);
+   }
 }

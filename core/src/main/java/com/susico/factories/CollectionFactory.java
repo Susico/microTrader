@@ -1,6 +1,7 @@
 package com.susico.factories;
 
 import it.unimi.dsi.fastutil.longs.LongArraySet;
+import it.unimi.dsi.fastutil.longs.LongCollection;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
@@ -12,6 +13,14 @@ import org.jetbrains.annotations.NotNull;
 public final class CollectionFactory {
    @NotNull public static LongSet getLongSet() {
       return new LongArraySet();
+   }
+
+   @NotNull public static LongSet getLongSet(long... l) {
+      return new LongArraySet(l);
+   }
+
+   @NotNull public static LongSet getLongSet(LongCollection l) {
+      return new LongArraySet(l);
    }
 
    @NotNull public static Object2ObjectMap getObjectObjectMap() {

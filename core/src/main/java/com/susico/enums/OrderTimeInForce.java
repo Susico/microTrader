@@ -61,6 +61,14 @@ public enum OrderTimeInForce {
     */
    OnSessionOpen,
    /**
+    * Opening Auction
+    */
+   OpeningAuction,
+   /**
+    * Closing Auction
+    */
+   ClosingAuction,
+   /**
     * Default
     */
    Default,

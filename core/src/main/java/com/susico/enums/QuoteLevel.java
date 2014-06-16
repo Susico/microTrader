@@ -7,11 +7,15 @@ public enum QuoteLevel {
    /**
     * Best bid ask only (Level 1)
     */
-   Best,
+   TopAndBottomOnly,
    /**
     * Ranked
     */
    Ranked,
+   /**
+    * Ordering based on priority queue
+    */
+   PriorityOrdered,
    /**
     * MarketMaker
     */

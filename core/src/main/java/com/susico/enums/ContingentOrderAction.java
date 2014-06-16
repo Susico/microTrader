@@ -7,11 +7,23 @@ public enum ContingentOrderAction {
    /**
     * One Cancels Other
     */
-   Cancels,
+   CancelsAll,
+   /**
+    * Proportionate
+    */
+   CancelsProportionate,
    /**
     * One Triggers Other
     */
-   Trigger,
+   TriggerAll,
+   /**
+    * Proportionate
+    */
+   TriggerProportionate,
+   /**
+    * Change to market
+    */
+   ChangeToMarket,
    /**
     * Default
     */

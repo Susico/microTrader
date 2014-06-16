@@ -19,5 +19,5 @@ public enum QuoteSide {
    /**
     * Default
     */
-   Default
+   Default;
 }

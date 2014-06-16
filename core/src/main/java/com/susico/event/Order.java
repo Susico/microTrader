@@ -1,8 +1,6 @@
 package com.susico.event;
 
-import com.susico.enums.ContingentOrderAction;
-import com.susico.enums.OrderParamType;
-import com.susico.enums.OrderTimeInForce;
+import com.susico.enums.*;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.lang.MutableString;
@@ -17,24 +15,51 @@ import static com.susico.factories.MutableStringFactory.getMutableString;
  */
 public class Order extends EventBase {
    // NB: @NotNull ofr primitive type is for alignment
-   @NotNull private       long             id                   = 0;
-   @NotNull private final MutableString    ticker               = getMutableString();
-   @NotNull private final MutableString    exchange             = getMutableString();
-   @NotNull private final MutableString    orderTypeName        = getMutableString();
-   @NotNull private       double           size                 = Double.NaN;
-   @NotNull private       OrderTimeInForce timeInForce          = OrderTimeInForce.Default;
-   @NotNull private       long             timeInForceDateParam = 0;
-   @NotNull private       long             minQuantity          = 0;
+   @NotNull private       long          id            = 0;
+   @NotNull private       OrderAction   orderAction   = OrderAction.Default;
+   @NotNull private final MutableString account       = getMutableString();
+   @NotNull private final MutableString settlingFirm  = getMutableString();
+   @NotNull private final MutableString ticker        = getMutableString();
+   @NotNull private final MutableString exchange      = getMutableString();
+   @NotNull private final MutableString orderTypeName = getMutableString();
+   @NotNull private       double        size          = Double.NaN;
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private boolean isHidden        = false;
+   @NotNull private long    displayQuantity = -1;
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private OrderTimeInForce timeInForce     = OrderTimeInForce.Default;
+   @NotNull private long             beforeDateParam = 0;
+   @NotNull private long             afterDateParam  = 0;
+   @NotNull private boolean          isAfterHours    = false;
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private boolean isAllOrNone = false;
+   @NotNull private long    minQuantity = 0;
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private boolean isBlock = false;
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull private final MutableString currency = getMutableString();
 
-   @NotNull private OrderParamType orderParamTypeLevel1 = OrderParamType.Default;
-   @NotNull private double         paramLevel1          = Double.NaN;
-   @NotNull private OrderParamType orderParamTypeLevel2 = OrderParamType.Default;
-   @NotNull private double         paramLevel2          = Double.NaN;
-   @NotNull private OrderParamType orderParamTypeLevel3 = OrderParamType.Default;
-   @NotNull private double         paramLevel3          = Double.NaN;
+   @NotNull private PriceConvention priceConvention = PriceConvention.Price;
+
+   @NotNull private double     priceLimit   = Double.NaN;
+   @NotNull private double     priceStop    = Double.NaN;
+   @NotNull private double     offsetAmount = Double.NaN;
+   @NotNull private OffsetType offsetType   = OffsetType.Default;
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private final MutableString referenceTicker = getMutableString();
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @NotNull private double  discretionaryAmount = Double.NaN;
+   @NotNull private double  NBBOCap             = Double.NaN;
+   @NotNull private boolean eTradeOnly          = false;
+   @NotNull private boolean firmQuoteOnly       = false;
+   @NotNull private boolean disableSmartRouting = false;
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull private       ContingentOrderAction contingentOrderAction = ContingentOrderAction.Default;
@@ -46,52 +71,22 @@ public class Order extends EventBase {
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull private final Object2ObjectMap meta = getObjectObjectMap();
 
-   public void set(long timeStamp, long id, @NotNull MutableString ticker, @NotNull MutableString exchange,
-                   @NotNull MutableString orderTypeName, double size, @NotNull OrderParamType orderParamTypeLevel1,
-                   double priceLevel1, @NotNull OrderParamType orderParamTypeLevel2, double priceLevel2,
-                   @NotNull OrderParamType orderParamTypeLevel3, double priceLevel3,
-                   @NotNull ContingentOrderAction contingentOrderAction, @NotNull LongSet contingentOrderIds,
-                   @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
-      set(timeStamp, id, ticker, exchange, orderTypeName, size, NullString, orderParamTypeLevel1, priceLevel1,
-          orderParamTypeLevel2, priceLevel2, orderParamTypeLevel3, priceLevel3, contingentOrderAction,
-          contingentOrderIds, tag, meta);
-   }
-
-   public void set(long timeStamp, long id, @NotNull MutableString ticker, @NotNull MutableString exchange,
-                   @NotNull MutableString orderTypeName, double size, @NotNull OrderTimeInForce timeInForce,
-                   long timeInForceDateParam, long minQuantity, @NotNull MutableString currency,
-                   @NotNull OrderParamType orderParamTypeLevel1, double priceLevel1,
-                   @NotNull OrderParamType orderParamTypeLevel2, double priceLevel2,
-                   @NotNull OrderParamType orderParamTypeLevel3, double priceLevel3,
-                   @NotNull ContingentOrderAction contingentOrderAction, @NotNull LongSet contingentOrderIds,
-                   @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
-      setTimeStamp(timeStamp); setId(id); setTicker(ticker); setExchange(exchange); setOrderTypeName(orderTypeName);
-      setSize(size); setCurrency(currency); setOrderParamTypeLevel1(orderParamTypeLevel1);
-      setOrderParamTypeLevel2(orderParamTypeLevel2); setOrderParamTypeLevel3(orderParamTypeLevel3);
-      setParamLevel1(priceLevel1); setParamLevel2(priceLevel2); setParamLevel3(priceLevel3);
-      setContingentOrderAction(contingentOrderAction); setContingentOrderIds(contingentOrderIds); setTag(tag);
-      setMeta(meta);
-   }
-
-   public void set(long timeStamp, long id, @NotNull MutableString ticker, @NotNull MutableString exchange,
-                   @NotNull MutableString orderTypeName, double size, @NotNull MutableString currency,
-                   @NotNull OrderParamType orderParamTypeLevel1, double priceLevel1,
-                   @NotNull OrderParamType orderParamTypeLevel2, double priceLevel2,
-                   @NotNull OrderParamType orderParamTypeLevel3, double priceLevel3, @NotNull MutableString tag,
-                   @NotNull Object2ObjectMap meta) {
-      set(timeStamp, id, ticker, exchange, orderTypeName, size, currency, orderParamTypeLevel1, priceLevel1,
-          orderParamTypeLevel2, priceLevel2, orderParamTypeLevel3, priceLevel3, ContingentOrderAction.Default,
-          EmptyLongSet, tag, meta);
-   }
-
-   public void set(long timeStamp, long id, @NotNull MutableString ticker, @NotNull MutableString exchange,
-                   @NotNull MutableString orderTypeName, double size, @NotNull OrderParamType orderParamTypeLevel1,
-                   double priceLevel1, @NotNull OrderParamType orderParamTypeLevel2, double priceLevel2,
-                   @NotNull OrderParamType orderParamTypeLevel3, double priceLevel3, @NotNull MutableString tag,
-                   @NotNull Object2ObjectMap meta) {
-      set(timeStamp, id, ticker, exchange, orderTypeName, size, NullString, orderParamTypeLevel1, priceLevel1,
-          orderParamTypeLevel2, priceLevel2, orderParamTypeLevel3, priceLevel3, ContingentOrderAction.Default,
-          EmptyLongSet, tag, meta);
+   public void set(long timeStamp, long id, OrderAction orderAction, MutableString account, MutableString settlingFirm,
+                   @NotNull MutableString ticker, @NotNull MutableString exchange, @NotNull MutableString orderTypeName,
+                   double size, boolean isHidden, long displayQuantity, @NotNull OrderTimeInForce timeInForce,
+                   long beforeDateParam, long afterDateParam, boolean afterHours, boolean isAllOrNone, long minQuantity,
+                   boolean isBlock, @NotNull MutableString currency, PriceConvention priceConvention, double priceLimit,
+                   double priceStop, double offsetAmount, OffsetType offsetType, MutableString referenceTicker,
+                   double discretionaryAmount, double NBBOCap, boolean eTradeOnly, boolean firmQuoteOnly,
+                   boolean disableSmartRouting, @NotNull ContingentOrderAction contingentOrderAction,
+                   @NotNull LongSet contingentOrderIds, @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
+      setTimeStamp(timeStamp); setId(id); setOrderAction(orderAction); setTicker(ticker); setExchange(exchange);
+      setOrderTypeName(orderTypeName); setSize(size); setHidden(isHidden); setDisplayQuantity(displayQuantity);
+      setTimeInForce(timeInForce); setBeforeDateParam(beforeDateParam); setAfterDateParam(afterDateParam);
+      setAfterHours(afterHours); setAllOrNone(isAllOrNone); setMinQuantity(minQuantity); setBlock(isBlock);
+      setCurrency(currency); setPriceConvention(priceConvention); setPriceLimit(priceLimit); setPriceStop(priceStop);
+      setOffsetAmount(offsetAmount); setOffsetType(offsetType); setContingentOrderAction(contingentOrderAction);
+      setContingentOrderIds(contingentOrderIds); setTag(tag); setMeta(meta);
    }
 
    @NotNull public MutableString getTicker() {
@@ -100,6 +95,122 @@ public class Order extends EventBase {
 
    public void setTicker(@NotNull MutableString ticker) {
       this.ticker.delete(0, this.ticker.length()).append(ticker);
+   }
+
+   @NotNull public MutableString getAccount() {
+      return account;
+   }
+
+   public void setAccount(@NotNull final MutableString account) {
+      setStr(this.account, account);
+   }
+
+   @NotNull public MutableString getSettlingFirm() {
+      return settlingFirm;
+   }
+
+   public void setSettlingFirm(@NotNull final MutableString settlingFirm) {
+      setStr(this.settlingFirm, settlingFirm);
+   }
+
+   @NotNull public boolean isHidden() {
+      return isHidden;
+   }
+
+   public void setHidden(@NotNull final boolean isHidden) {
+      this.isHidden = isHidden;
+   }
+
+   @NotNull public long getDisplayQuantity() {
+      return displayQuantity;
+   }
+
+   public void setDisplayQuantity(@NotNull final long displayQuantity) {
+      this.displayQuantity = displayQuantity;
+   }
+
+   @NotNull public long getBeforeDateParam() {
+      return beforeDateParam;
+   }
+
+   public void setBeforeDateParam(@NotNull final long beforeDateParam) {
+      this.beforeDateParam = beforeDateParam;
+   }
+
+   @NotNull public boolean isAfterHours() {
+      return isAfterHours;
+   }
+
+   public void setAfterHours(@NotNull final boolean afterHours) {
+      this.isAfterHours = afterHours;
+   }
+
+   @NotNull public boolean isAllOrNone() {
+      return isAllOrNone;
+   }
+
+   public void setAllOrNone(@NotNull final boolean isAllOrNone) {
+      this.isAllOrNone = isAllOrNone;
+   }
+
+   @NotNull public boolean isBlock() {
+      return isBlock;
+   }
+
+   public void setBlock(@NotNull final boolean isBlock) {
+      this.isBlock = isBlock;
+   }
+
+   @NotNull public PriceConvention getPriceConvention() {
+      return priceConvention;
+   }
+
+   public void setPriceConvention(@NotNull final PriceConvention priceConvention) {
+      this.priceConvention = priceConvention;
+   }
+
+   @NotNull public OffsetType getOffsetType() {
+      return offsetType;
+   }
+
+   public void setOffsetType(@NotNull final OffsetType offsetType) {
+      this.offsetType = offsetType;
+   }
+
+   @NotNull public MutableString getReferenceTicker() {
+      return referenceTicker;
+   }
+
+   public void setReferenceTicker(@NotNull final MutableString referenceTicker) {
+      setStr(this.referenceTicker, referenceTicker);
+   }
+
+   @NotNull public double getDiscretionaryAmount() {
+      return discretionaryAmount;
+   }
+
+   public void setDiscretionaryAmount(@NotNull final double discretionaryAmount) {
+      this.discretionaryAmount = discretionaryAmount;
+   }
+
+   @NotNull public double getNBBOCap() {
+      return NBBOCap;
+   }
+
+   public void setNBBOCap(@NotNull final double NBBOCap) {
+      this.NBBOCap = NBBOCap;
+   }
+
+   @NotNull public boolean iseTradeOnly() {
+      return eTradeOnly;
+   }
+
+   public void seteTradeOnly(@NotNull final boolean eTradeOnly) {
+      this.eTradeOnly = eTradeOnly;
+   }
+
+   public void setTradeOnly(@NotNull final boolean eTradeOnly) {
+      this.eTradeOnly = eTradeOnly;
    }
 
    public void setContingentOrderId(long contingentOrderIds) {
@@ -138,12 +249,12 @@ public class Order extends EventBase {
       setStr(this.tag, tag);
    }
 
-   @NotNull public long getTimeInForceDateParam() {
-      return timeInForceDateParam;
+   @NotNull public long getAfterDateParam() {
+      return afterDateParam;
    }
 
-   public void setTimeInForceDateParam(@NotNull final long timeInForceDateParam) {
-      this.timeInForceDateParam = timeInForceDateParam;
+   public void setAfterDateParam(@NotNull final long afterDateParam) {
+      this.afterDateParam = afterDateParam;
    }
 
    @NotNull public Object2ObjectMap getMeta() {
@@ -170,52 +281,28 @@ public class Order extends EventBase {
       this.size = size;
    }
 
-   @NotNull public OrderParamType getOrderParamTypeLevel1() {
-      return orderParamTypeLevel1;
+   public double getPriceLimit() {
+      return priceLimit;
    }
 
-   public void setOrderParamTypeLevel1(@NotNull OrderParamType orderParamTypeLevel1) {
-      this.orderParamTypeLevel1 = orderParamTypeLevel1;
+   public void setPriceLimit(final double priceLimit) {
+      this.priceLimit = priceLimit;
    }
 
-   public double getParamLevel1() {
-      return paramLevel1;
+   public double getPriceStop() {
+      return priceStop;
    }
 
-   public void setParamLevel1(final double paramLevel1) {
-      this.paramLevel1 = paramLevel1;
+   public void setPriceStop(final double priceStop) {
+      this.priceStop = priceStop;
    }
 
-   @NotNull public OrderParamType getOrderParamTypeLevel2() {
-      return orderParamTypeLevel2;
+   public double getOffsetAmount() {
+      return offsetAmount;
    }
 
-   public void setOrderParamTypeLevel2(@NotNull OrderParamType orderParamTypeLevel2) {
-      this.orderParamTypeLevel2 = orderParamTypeLevel2;
-   }
-
-   public double getParamLevel2() {
-      return paramLevel2;
-   }
-
-   public void setParamLevel2(final double paramLevel2) {
-      this.paramLevel2 = paramLevel2;
-   }
-
-   @NotNull public OrderParamType getOrderParamTypeLevel3() {
-      return orderParamTypeLevel3;
-   }
-
-   public void setOrderParamTypeLevel3(@NotNull OrderParamType orderParamTypeLevel3) {
-      this.orderParamTypeLevel3 = orderParamTypeLevel3;
-   }
-
-   public double getParamLevel3() {
-      return paramLevel3;
-   }
-
-   public void setParamLevel3(final double paramLevel3) {
-      this.paramLevel3 = paramLevel3;
+   public void setOffsetAmount(final double offsetAmount) {
+      this.offsetAmount = offsetAmount;
    }
 
    @NotNull public ContingentOrderAction getContingentOrderAction() {
@@ -248,5 +335,29 @@ public class Order extends EventBase {
 
    public void setCurrency(@NotNull final MutableString currency) {
       setStr(this.currency, currency);
+   }
+
+   @NotNull public boolean isFirmQuoteOnly() {
+      return firmQuoteOnly;
+   }
+
+   public void setFirmQuoteOnly(@NotNull final boolean firmQuoteOnly) {
+      this.firmQuoteOnly = firmQuoteOnly;
+   }
+
+   @NotNull public OrderAction getOrderAction() {
+      return orderAction;
+   }
+
+   public void setOrderAction(@NotNull final OrderAction orderAction) {
+      this.orderAction = orderAction;
+   }
+
+   @NotNull public boolean isDisableSmartRouting() {
+      return disableSmartRouting;
+   }
+
+   public void setDisableSmartRouting(@NotNull final boolean disableSmartRouting) {
+      this.disableSmartRouting = disableSmartRouting;
    }
 }
