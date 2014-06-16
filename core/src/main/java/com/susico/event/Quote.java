@@ -21,7 +21,7 @@ public class Quote extends EventBase {
    @NotNull private       double          price           = Double.NaN;
    @NotNull private       PriceConvention priceConvention = PriceConvention.Default;
    @NotNull private       double          size            = Double.NaN; // Defined as double for FX
-   @NotNull private final MutableString currency = getMutableString();
+   @NotNull private final MutableString   currency        = getMutableString();
 
    @NotNull private final MutableString marketMaker  = getMutableString();
    @NotNull private       long          rank         = -1;

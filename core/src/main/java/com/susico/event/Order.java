@@ -58,7 +58,8 @@ public class Order extends EventBase {
    }
 
    public void set(long timeStamp, long id, @NotNull MutableString ticker, @NotNull MutableString exchange,
-                   @NotNull MutableString orderTypeName, double size, @NotNull MutableString currency,
+                   @NotNull MutableString orderTypeName, double size, @NotNull OrderTimeInForce timeInForce,
+                   long timeInForceDateParam, long minQuantity, @NotNull MutableString currency,
                    @NotNull OrderParamType orderParamTypeLevel1, double priceLevel1,
                    @NotNull OrderParamType orderParamTypeLevel2, double priceLevel2,
                    @NotNull OrderParamType orderParamTypeLevel3, double priceLevel3,

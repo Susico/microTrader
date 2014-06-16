@@ -13,7 +13,7 @@ public enum OrderTimeInForce {
     */
    Session,
    /**
-    * Good Till Ccancelled
+    * Good Till Cancelled
     */
    GTC,
    /**
@@ -21,17 +21,21 @@ public enum OrderTimeInForce {
     */
    GTD,
    /**
+    * Good after date
+    */
+   GAD,
+   /**
+    * Good after date till date
+    */
+   GADTD,
+   /**
     * Fill or Kill
     */
    FoK,
    /**
-    * Imitate or Cancel
+    * Immediate or Cancel
     */
    IoC,
-   /**
-    * All or None (wait until all can be filled)
-    */
-   AoN,
    /**
     * On Close
     */
