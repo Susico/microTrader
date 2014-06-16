@@ -6,10 +6,6 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.lang.MutableString;
 import org.jetbrains.annotations.NotNull;
 
-import static com.susico.factories.CollectionFactory.getLongSet;
-import static com.susico.factories.CollectionFactory.getObjectObjectMap;
-import static com.susico.factories.MutableStringFactory.getMutableString;
-
 /**
  * Created by Suminda on 09/06/2014.
  */
@@ -17,11 +13,11 @@ public class Order extends EventBase {
    // NB: @NotNull ofr primitive type is for alignment
    @NotNull private       long          id            = 0;
    @NotNull private       OrderAction   orderAction   = OrderAction.Default;
-   @NotNull private final MutableString account       = getMutableString();
-   @NotNull private final MutableString settlingFirm  = getMutableString();
-   @NotNull private final MutableString ticker        = getMutableString();
-   @NotNull private final MutableString exchange      = getMutableString();
-   @NotNull private final MutableString orderTypeName = getMutableString();
+   @NotNull private final MutableString account       = NullMutableString();
+   @NotNull private final MutableString settlingFirm  = NullMutableString();
+   @NotNull private final MutableString ticker        = NullMutableString();
+   @NotNull private final MutableString exchange      = NullMutableString();
+   @NotNull private final MutableString orderTypeName = NullMutableString();
    @NotNull private       double        size          = Double.NaN;
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +38,7 @@ public class Order extends EventBase {
    @NotNull private boolean isBlock = false;
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull private final MutableString currency = getMutableString();
+   @NotNull private final MutableString currency = NullMutableString();
 
    @NotNull private PriceConvention priceConvention = PriceConvention.Price;
 
@@ -52,7 +48,7 @@ public class Order extends EventBase {
    @NotNull private OffsetType offsetType   = OffsetType.Default;
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull private final MutableString referenceTicker = getMutableString();
+   @NotNull private final MutableString referenceTicker = NullMutableString();
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull private double  discretionaryAmount = Double.NaN;
@@ -63,30 +59,115 @@ public class Order extends EventBase {
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull private       ContingentOrderAction contingentOrderAction = ContingentOrderAction.Default;
-   @NotNull private final LongSet               contingentOrderIds    = getLongSet();
+   @NotNull private final LongSet               contingentOrderIds    = EmptyLongSet();
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull private final MutableString tag = getMutableString();
+   @NotNull private final MutableString tag = NullMutableString();
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull private final Object2ObjectMap meta = getObjectObjectMap();
+   @NotNull private final Object2ObjectMap meta = EmptyObject2ObjectMap();
 
-   public void set(long timeStamp, long id, OrderAction orderAction, MutableString account, MutableString settlingFirm,
-                   @NotNull MutableString ticker, @NotNull MutableString exchange, @NotNull MutableString orderTypeName,
-                   double size, boolean isHidden, long displayQuantity, @NotNull OrderTimeInForce timeInForce,
-                   long beforeDateParam, long afterDateParam, boolean afterHours, boolean isAllOrNone, long minQuantity,
-                   boolean isBlock, @NotNull MutableString currency, PriceConvention priceConvention, double priceLimit,
-                   double priceStop, double offsetAmount, OffsetType offsetType, MutableString referenceTicker,
-                   double discretionaryAmount, double NBBOCap, boolean eTradeOnly, boolean firmQuoteOnly,
-                   boolean disableSmartRouting, @NotNull ContingentOrderAction contingentOrderAction,
-                   @NotNull LongSet contingentOrderIds, @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
+   public void set(long timeStamp, long id, @NotNull OrderAction orderAction, MutableString account,
+                   MutableString settlingFirm, @NotNull MutableString ticker, @NotNull MutableString exchange,
+                   @NotNull MutableString orderTypeName, double size, boolean isHidden, long displayQuantity,
+                   @NotNull OrderTimeInForce timeInForce, long beforeDateParam, long afterDateParam, boolean afterHours,
+                   boolean isAllOrNone, long minQuantity, boolean isBlock, @NotNull MutableString currency,
+                   @NotNull PriceConvention priceConvention, double priceLimit, double priceStop, double offsetAmount,
+                   @NotNull OffsetType offsetType, double discretionaryAmount, double NBBOCap, boolean eTradeOnly,
+                   boolean firmQuoteOnly, boolean disableSmartRouting,
+                   @NotNull ContingentOrderAction contingentOrderAction, @NotNull LongSet contingentOrderIds,
+                   @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
+      set(timeStamp, id, orderAction, account, settlingFirm, ticker, exchange, orderTypeName, size, isHidden,
+          displayQuantity, timeInForce, beforeDateParam, afterDateParam, afterHours, isAllOrNone, minQuantity, isBlock,
+          currency, priceConvention, priceLimit, priceStop, offsetAmount, offsetType, NullMutableString(),
+          discretionaryAmount, NBBOCap, eTradeOnly, firmQuoteOnly, disableSmartRouting, contingentOrderAction,
+          contingentOrderIds, tag, meta);
+   }
+
+   public void set(long timeStamp, long id, @NotNull OrderAction orderAction, MutableString account,
+                   MutableString settlingFirm, @NotNull MutableString ticker, @NotNull MutableString exchange,
+                   @NotNull MutableString orderTypeName, double size, boolean isHidden, long displayQuantity,
+                   @NotNull OrderTimeInForce timeInForce, long beforeDateParam, long afterDateParam, boolean afterHours,
+                   boolean isAllOrNone, long minQuantity, boolean isBlock, @NotNull MutableString currency,
+                   @NotNull PriceConvention priceConvention, double priceLimit, double priceStop, double offsetAmount,
+                   @NotNull OffsetType offsetType, @NotNull MutableString referenceTicker, double discretionaryAmount,
+                   double NBBOCap, boolean eTradeOnly, boolean firmQuoteOnly, boolean disableSmartRouting,
+                   @NotNull ContingentOrderAction contingentOrderAction, @NotNull LongSet contingentOrderIds,
+                   @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
       setTimeStamp(timeStamp); setId(id); setOrderAction(orderAction); setTicker(ticker); setExchange(exchange);
       setOrderTypeName(orderTypeName); setSize(size); setHidden(isHidden); setDisplayQuantity(displayQuantity);
       setTimeInForce(timeInForce); setBeforeDateParam(beforeDateParam); setAfterDateParam(afterDateParam);
       setAfterHours(afterHours); setAllOrNone(isAllOrNone); setMinQuantity(minQuantity); setBlock(isBlock);
       setCurrency(currency); setPriceConvention(priceConvention); setPriceLimit(priceLimit); setPriceStop(priceStop);
-      setOffsetAmount(offsetAmount); setOffsetType(offsetType); setContingentOrderAction(contingentOrderAction);
-      setContingentOrderIds(contingentOrderIds); setTag(tag); setMeta(meta);
+      setOffsetAmount(offsetAmount); setOffsetType(offsetType); setReferenceTicker(referenceTicker);
+      setDiscretionaryAmount(discretionaryAmount); setNBBOCap(NBBOCap); seteTradeOnly(eTradeOnly);
+      setFirmQuoteOnly(firmQuoteOnly); setDisableSmartRouting(disableSmartRouting);
+      setContingentOrderAction(contingentOrderAction); setContingentOrderIds(contingentOrderIds); setTag(tag);
+      setMeta(meta);
+   }
+
+   public void set(long timeStamp, long id, @NotNull OrderAction orderAction, @NotNull MutableString ticker,
+                   @NotNull MutableString exchange, @NotNull MutableString orderTypeName, double size, boolean isHidden,
+                   long displayQuantity, @NotNull OrderTimeInForce timeInForce, long beforeDateParam,
+                   long afterDateParam, boolean afterHours, boolean isAllOrNone, long minQuantity, boolean isBlock,
+                   @NotNull MutableString currency, @NotNull PriceConvention priceConvention, double priceLimit,
+                   double priceStop, double offsetAmount, @NotNull OffsetType offsetType, double discretionaryAmount,
+                   double NBBOCap, boolean eTradeOnly, boolean firmQuoteOnly, boolean disableSmartRouting,
+                   @NotNull ContingentOrderAction contingentOrderAction, @NotNull LongSet contingentOrderIds,
+                   @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
+      set(timeStamp, id, orderAction, NullMutableString(), NullMutableString(), ticker, exchange, orderTypeName, size,
+          isHidden, displayQuantity, timeInForce, beforeDateParam, afterDateParam, afterHours, isAllOrNone, minQuantity,
+          isBlock, currency, priceConvention, priceLimit, priceStop, offsetAmount, offsetType, NullMutableString(),
+          discretionaryAmount, NBBOCap, eTradeOnly, firmQuoteOnly, disableSmartRouting, contingentOrderAction,
+          contingentOrderIds, tag, meta);
+   }
+
+   public void set(long timeStamp, long id, @NotNull OrderAction orderAction, @NotNull MutableString ticker,
+                   @NotNull MutableString exchange, @NotNull MutableString orderTypeName, double size, boolean isHidden,
+                   long displayQuantity, @NotNull OrderTimeInForce timeInForce, long beforeDateParam,
+                   long afterDateParam, boolean afterHours, boolean isAllOrNone, long minQuantity, boolean isBlock,
+                   @NotNull PriceConvention priceConvention, double priceLimit, double priceStop, double offsetAmount,
+                   @NotNull OffsetType offsetType, @NotNull MutableString referenceTicker, double discretionaryAmount,
+                   double NBBOCap, boolean eTradeOnly, boolean firmQuoteOnly, boolean disableSmartRouting,
+                   @NotNull ContingentOrderAction contingentOrderAction, @NotNull LongSet contingentOrderIds,
+                   @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
+      set(timeStamp, id, orderAction, NullMutableString(), NullMutableString(), ticker, exchange, orderTypeName, size,
+          isHidden, displayQuantity, timeInForce, beforeDateParam, afterDateParam, afterHours, isAllOrNone, minQuantity,
+          isBlock, NullMutableString(), priceConvention, priceLimit, priceStop, offsetAmount, offsetType,
+          referenceTicker, discretionaryAmount, NBBOCap, eTradeOnly, firmQuoteOnly, disableSmartRouting,
+          contingentOrderAction, contingentOrderIds, tag, meta);
+   }
+
+   public void set(long timeStamp, long id, @NotNull OrderAction orderAction, MutableString account,
+                   MutableString settlingFirm, @NotNull MutableString ticker, @NotNull MutableString exchange,
+                   @NotNull MutableString orderTypeName, double size, boolean isHidden, long displayQuantity,
+                   @NotNull OrderTimeInForce timeInForce, long beforeDateParam, long afterDateParam, boolean afterHours,
+                   boolean isAllOrNone, long minQuantity, boolean isBlock, @NotNull MutableString currency,
+                   @NotNull PriceConvention priceConvention, double priceLimit, double priceStop, double offsetAmount,
+                   @NotNull OffsetType offsetType, @NotNull MutableString referenceTicker, double discretionaryAmount,
+                   double NBBOCap, boolean eTradeOnly, boolean firmQuoteOnly, boolean disableSmartRouting,
+                   @NotNull MutableString tag, @NotNull Object2ObjectMap meta) {
+      set(timeStamp, id, orderAction, account, settlingFirm, ticker, exchange, orderTypeName, size, isHidden,
+          displayQuantity, timeInForce, beforeDateParam, afterDateParam, afterHours, isAllOrNone, minQuantity, isBlock,
+          currency, priceConvention, priceLimit, priceStop, offsetAmount, offsetType, referenceTicker,
+          discretionaryAmount, NBBOCap, eTradeOnly, firmQuoteOnly, disableSmartRouting, ContingentOrderAction.Default,
+          EmptyLongSet(), tag, meta);
+   }
+
+   public void set(long timeStamp, long id, @NotNull OrderAction orderAction, @NotNull MutableString ticker,
+                   @NotNull MutableString exchange, @NotNull MutableString orderTypeName, double size, boolean isHidden,
+                   long displayQuantity, @NotNull OrderTimeInForce timeInForce, long beforeDateParam,
+                   long afterDateParam, boolean afterHours, boolean isAllOrNone, long minQuantity, boolean isBlock,
+                   @NotNull MutableString currency, @NotNull PriceConvention priceConvention, double priceLimit,
+                   double priceStop, double offsetAmount, @NotNull OffsetType offsetType,
+                   @NotNull MutableString referenceTicker, double discretionaryAmount, double NBBOCap,
+                   boolean eTradeOnly, boolean firmQuoteOnly, boolean disableSmartRouting, @NotNull MutableString tag,
+                   @NotNull Object2ObjectMap meta) {
+      set(timeStamp, id, orderAction, NullMutableString(), NullMutableString(), ticker, exchange, orderTypeName, size,
+          isHidden, displayQuantity, timeInForce, beforeDateParam, afterDateParam, afterHours, isAllOrNone, minQuantity,
+          isBlock, currency, priceConvention, priceLimit, priceStop, offsetAmount, offsetType, referenceTicker,
+          discretionaryAmount, NBBOCap, eTradeOnly, firmQuoteOnly, disableSmartRouting, ContingentOrderAction.Default,
+          EmptyLongSet(), tag, meta);
    }
 
    @NotNull public MutableString getTicker() {

@@ -13,7 +13,7 @@ public class ExecutionReport extends EventBase {
    @NotNull private long filled;
    @NotNull private long pending;
 
-   public void set(long orderID, OrderStatus status, long size, long filled, long pending) {
+   public void set(long orderID, @NotNull OrderStatus status, long size, long filled, long pending) {
       setOrderID(orderID); setStatus(status); setSize(size); setFilled(filled); setPending(pending);
    }
 

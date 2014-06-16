@@ -3,24 +3,26 @@ package com.susico.event;
 import it.unimi.dsi.fastutil.doubles.DoubleCollection;
 import it.unimi.dsi.fastutil.longs.LongCollection;
 import it.unimi.dsi.fastutil.longs.LongSet;
-import it.unimi.dsi.fastutil.longs.LongSets;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
-import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import it.unimi.dsi.lang.MutableString;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Map;
 
+import static com.susico.factories.CollectionFactory.getLongSet;
+import static com.susico.factories.CollectionFactory.getObjectObjectMap;
 import static com.susico.factories.MutableStringFactory.getMutableString;
 
 /**
  * Created by Suminda on 09/06/2014.
  */
 public class EventBase {
-   @NotNull protected final MutableString    NullString            = getMutableString();
-   @NotNull protected final LongSet          EmptyLongSet          = LongSets.EMPTY_SET;
-   @NotNull protected final Object2ObjectMap EmptyObject2ObjectMap = Object2ObjectMaps.EMPTY_MAP;
+   @NotNull protected static final MutableString NullMutableString() { return getMutableString(); }
+
+   @NotNull protected static final LongSet EmptyLongSet() { return getLongSet(); }
+
+   @NotNull protected static final Object2ObjectMap EmptyObject2ObjectMap() { return getObjectObjectMap(); }
 
    @NotNull protected long timeStamp = 0;
 
