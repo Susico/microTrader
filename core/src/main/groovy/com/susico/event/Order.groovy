@@ -177,12 +177,30 @@ class Order extends EventBase {
       setStr(this.ticker, ticker)
    }
 
+   Order ticker(@NotNull MutableString ticker) {
+      setStr(this.ticker, ticker)
+
+      this
+   }
+
    void setAccount(@NotNull final MutableString account) {
       setStr(this.account, account)
    }
 
+   Order account(@NotNull final MutableString account) {
+      setStr(this.account, account)
+
+      this
+   }
+
    void setSettlingFirm(@NotNull final MutableString settlingFirm) {
       setStr(this.settlingFirm, settlingFirm)
+   }
+
+   Order settlingFirm(@NotNull final MutableString settlingFirm) {
+      setStr(this.settlingFirm, settlingFirm)
+
+      this
    }
 
    void setDisplayQuantity(@NotNull final long displayQuantity) {
@@ -201,6 +219,12 @@ class Order extends EventBase {
       setStr(this.referenceTicker, referenceTicker)
    }
 
+   Order referenceTicker(@NotNull final MutableString referenceTicker) {
+      setStr(this.referenceTicker, referenceTicker)
+
+      this
+   }
+
    void setContingentOrderId(long contingentOrderId) {
       setCollection(this.contingentOrderIds, contingentOrderId)
    }
@@ -209,27 +233,69 @@ class Order extends EventBase {
       setCollection(this.contingentOrderIds, contingentOrderIds)
    }
 
+   Order contingentOrderIds(LongCollection contingentOrderIds) {
+      setCollection(this.contingentOrderIds, contingentOrderIds)
+
+      this
+   }
+
    void setExchange(@NotNull MutableString exchange) {
       setStr(this.exchange, exchange)
+   }
+
+   Order exchange(@NotNull MutableString exchange) {
+      setStr(this.exchange, exchange)
+
+      this
    }
 
    void setOrderTypeName(@NotNull MutableString orderTypeName) {
       setStr(this.orderTypeName, orderTypeName)
    }
 
+   Order orderTypeName(@NotNull MutableString orderTypeName) {
+      setStr(this.orderTypeName, orderTypeName)
+
+      this
+   }
+
    void setContingentOrderIds(@NotNull LongSet contingentOrderIds) {
       setCollection(this.contingentOrderIds, contingentOrderIds)
+   }
+
+   Order contingentOrderIds(@NotNull LongSet contingentOrderIds) {
+      setCollection(this.contingentOrderIds, contingentOrderIds)
+
+      this
    }
 
    void setTag(@NotNull MutableString tag) {
       setStr(this.tag, tag)
    }
 
+   Order tag(@NotNull MutableString tag) {
+      setStr(this.tag, tag)
+
+      this
+   }
+
    void setMeta(@NotNull Object2ObjectMap meta) {
       setMap(this.meta, meta)
    }
 
+   Order meta(@NotNull Object2ObjectMap meta) {
+      setMap(this.meta, meta)
+
+      this
+   }
+
    void setCurrency(@NotNull final MutableString currency) {
       setStr(this.currency, currency)
+   }
+
+   Order currency(@NotNull final MutableString currency) {
+      setStr(this.currency, currency)
+
+      this
    }
 }

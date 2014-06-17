@@ -101,4 +101,28 @@ class Quote extends EventBase {
    void setMeta(@NotNull Object2ObjectMap meta) {
       setMap(this.meta, meta)
    }
+
+   Quote ticker(@NotNull MutableString ticker) {
+      setStr(this.ticker, ticker)
+
+      this
+   }
+
+   Quote marketMaker(@NotNull MutableString marketMaker) {
+      setStr(this.marketMaker, marketMaker)
+
+      this
+   }
+
+   Quote currency(@NotNull MutableString currency) {
+      setStr(this.currency, currency)
+
+      this
+   }
+
+   Quote meta(@NotNull Object2ObjectMap meta) {
+      setMap(this.meta, meta)
+
+      this
+   }
 }
