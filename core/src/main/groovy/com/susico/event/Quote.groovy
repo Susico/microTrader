@@ -7,6 +7,8 @@ import groovy.transform.AutoClone
 import groovy.transform.AutoExternalize
 import groovy.transform.Canonical
 import groovy.transform.CompileStatic
+import groovy.transform.builder.Builder
+import groovy.transform.builder.SimpleStrategy
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap
 import it.unimi.dsi.lang.MutableString
 import org.jetbrains.annotations.NotNull
