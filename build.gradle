@@ -6,13 +6,23 @@ allprojects {
    apply plugin: 'idea'
    apply plugin: 'eclipse'
 
+   group = 'com.susico'
+   version = 'PreAlpha'
+
+   description = 'A minimalist set of libraries to build trading systems'
+
    repositories {
       mavenCentral()
+      mavenLocal()
+
+      maven { url 'http://oss.sonatype.org/content/groups/public/' }
    }
 
    configurations {
       provided
       provided.extendsFrom(compile)
+
+      groovyDoc
    }
 
    dependencies {
@@ -26,12 +36,19 @@ allprojects {
       compile group: 'it.unimi.dsi', name: 'dsiutils', version: '2.2.0'
       compile group: 'it.unimi.dsi', name: 'sux4j', version: '3.1.2'
 
-      compile group: 'org.codenarc', name: 'CodeNarc', version: '0.21'
-      compile group: 'org.codenarc', name: 'CodeNarc', version: '0.21'
+      testCompile group: 'org.codenarc', name: 'CodeNarc', version: '0.21'
+      testCompile group: 'org.spockframework', name: 'spock-core', version: '0.7-groovy-2.0'
+
+      groovyDoc 'org.codehaus.groovy:groovy-groovydoc:2.3.3'
+      groovyDoc 'org.codehaus.groovy:groovy-ant:2.3.3'
    }
 
    task wrapper(type: Wrapper) {
       gradleVersion = '1.12'
+   }
+
+   groovydoc {
+      groovyClasspath = configurations.groovyDoc
    }
 
    idea {

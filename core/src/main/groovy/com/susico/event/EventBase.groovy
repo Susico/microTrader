@@ -20,6 +20,10 @@ abstract class EventBase {
 
    abstract EventBase reset()
 
+   EventBase recycle() {
+      reset()
+   }
+
    void setTimeStamp(long timeStamp) {
       this.timeStamp = timeStamp < 0 ? -1 : timeStamp;
    }
