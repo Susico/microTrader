@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull
  */
 @CompileStatic @AutoExternalize @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
 abstract class EventBase {
-   @NotNull long timeStamp = -1
+   long timeStamp = -1
 
    abstract EventBase reset()
 

@@ -23,54 +23,54 @@ import static com.susico.factories.MutableStringFactory.getMutableString
 @CompileStatic @AutoExternalize @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
 class Order extends EventBase {
    // NB: @NotNull for primitive type is for alignment
-   @NotNull long          id            = -1
+   long   id   = -1
    @NotNull OrderAction   orderAction   = OrderAction.Default
    @NotNull MutableString account       = getMutableString()
    @NotNull MutableString settlingFirm  = getMutableString()
    @NotNull MutableString ticker        = getMutableString()
    @NotNull MutableString exchange      = getMutableString()
    @NotNull MutableString orderTypeName = getMutableString()
-   @NotNull double        size          = Double.NaN
+   double size = Double.NaN
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull boolean hidden          = false
-   @NotNull long    displayQuantity = -1
+   boolean hidden          = false
+   long    displayQuantity = -1
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull OrderTimeInForce timeInForce     = OrderTimeInForce.Default
-   @NotNull long             beforeDateParam = -1
-   @NotNull long             afterDateParam  = -1
-   @NotNull boolean          afterHours      = false
+   long    beforeDateParam = -1
+   long    afterDateParam  = -1
+   boolean afterHours      = false
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull boolean allOrNone   = false
-   @NotNull double  minQuantity = Double.NaN
+   boolean allOrNone   = false
+   double  minQuantity = Double.NaN
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull boolean block       = false
-   @NotNull boolean sweepToFill = false
+   boolean block       = false
+   boolean sweepToFill = false
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull MutableString currency = getMutableString()
 
    @NotNull PriceConvention priceConvention = PriceConvention.Price
 
-   @NotNull double     priceLimit   = Double.NaN
-   @NotNull double     priceStop    = Double.NaN
-   @NotNull double     offsetAmount = Double.NaN
+   double priceLimit   = Double.NaN
+   double priceStop    = Double.NaN
+   double offsetAmount = Double.NaN
    @NotNull OffsetType offsetType   = OffsetType.Default
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull MutableString referenceTicker = getMutableString()
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull double discretionaryAmount = Double.NaN
-   @NotNull double NBBOCap             = Double.NaN
+   double discretionaryAmount = Double.NaN
+   double NBBOCap             = Double.NaN
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @NotNull boolean ETradeOnly          = false
-   @NotNull boolean firmQuoteOnly       = false
-   @NotNull boolean disableSmartRouting = false
+   boolean ETradeOnly          = false
+   boolean firmQuoteOnly       = false
+   boolean disableSmartRouting = false
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull ContingentOrderAction contingentOrderAction = ContingentOrderAction.Default

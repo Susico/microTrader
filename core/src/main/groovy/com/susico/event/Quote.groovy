@@ -24,18 +24,18 @@ import static com.susico.factories.MutableStringFactory.getMutableString
  */
 @CompileStatic @AutoExternalize @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
 class Quote extends EventBase {
-   @NotNull long            id              = -1
+   long   id    = -1
    @NotNull MutableString   ticker          = getMutableString()
    @NotNull QuoteSide       side            = QuoteSide.Default
-   @NotNull double          price           = Double.NaN
+   double price = Double.NaN
    @NotNull PriceConvention priceConvention = PriceConvention.Price
-   @NotNull double          size            = Double.NaN // Defined as double for FX
+   double size  = Double.NaN // Defined as double for FX
    @NotNull MutableString   currency        = getMutableString()
 
    @NotNull MutableString marketMaker      = getMutableString()
-   @NotNull long          rankOrderingOrId = -1
-   @NotNull double        bestBidOffer     = Double.NaN
-   @NotNull double        NBBO             = Double.NaN
+   long   rankOrderingOrId = -1
+   double bestBidOffer     = Double.NaN
+   double NBBO             = Double.NaN
    @NotNull QuoteLevel    quoteLevel       = QuoteLevel.Default
 
    @NotNull Object2ObjectMap meta = getObjectObjectMap()
