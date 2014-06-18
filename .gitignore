@@ -188,3 +188,7 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
+
+# Ignore Gradle Wrapper properties
+gradle-wrapper.properties
+ui/
