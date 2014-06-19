@@ -4,13 +4,13 @@ import com.susico.enums.OrderStatus
 import com.susico.event.ExecutionReport
 import groovy.transform.CompileStatic
 import groovy.transform.InheritConstructors
-import groovy.transform.TypeChecked
+import groovy.util.logging.Log4j2
 import org.jetbrains.annotations.NotNull
 
 /**
  * Created by Suminda on 19/06/2014.
  */
-@TypeChecked @CompileStatic @InheritConstructors
+@CompileStatic @InheritConstructors @Log4j2
 class ExecutionReportPublisher extends BasePublisher<ExecutionReport> {
    @Override
    void OnExecutionReport(long timeStamp, long orderID, @NotNull OrderStatus status, long size, long filled,
@@ -21,6 +21,8 @@ class ExecutionReportPublisher extends BasePublisher<ExecutionReport> {
          ExecutionReport executionReport = ringBuffer.get(sequence)
 
          executionReport.set timeStamp, orderID, status, size, filled, pending
+      } catch (e) {
+         log.error e
       } finally {
          ringBuffer.publish(sequence)
       }
