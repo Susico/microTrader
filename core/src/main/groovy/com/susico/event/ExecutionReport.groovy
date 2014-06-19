@@ -14,11 +14,11 @@ import org.jetbrains.annotations.NotNull
  */
 @CompileStatic @AutoExternalize @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
 class ExecutionReport extends EventBase {
-   long orderID = -1
+            long        orderID = -1
    @NotNull OrderStatus status  = OrderStatus.Default
-   long size    = -1
-   long filled  = -1
-   long pending = -1
+            long        size    = -1
+            long        filled  = -1
+            long        pending = -1
 
    def set(long timeStamp, long orderID, @NotNull OrderStatus status, long size, long filled, long pending) {
       setTimeStamp(timeStamp)
