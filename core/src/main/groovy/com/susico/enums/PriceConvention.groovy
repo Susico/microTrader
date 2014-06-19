@@ -1,12 +1,11 @@
 package com.susico.enums
 
 import groovy.transform.CompileStatic
-import groovy.transform.TypeChecked;
 
 /**
  * <P>Created by Suminda on 09/06/2014.</P>
  */
-@TypeChecked @CompileStatic
+@CompileStatic
 public enum PriceConvention {
    /**
     * Price

@@ -1,6 +1,9 @@
 package com.susico.event
 
-import groovy.transform.*
+import groovy.transform.AutoClone
+import groovy.transform.AutoExternalize
+import groovy.transform.Canonical
+import groovy.transform.CompileStatic
 import groovy.transform.builder.Builder
 import groovy.transform.builder.SimpleStrategy
 import it.unimi.dsi.fastutil.doubles.DoubleCollection
@@ -11,12 +14,12 @@ import org.jetbrains.annotations.NotNull
 /**
  * Created by Suminda on 09/06/2014.
  */
-@TypeChecked @CompileStatic @AutoExternalize @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy,
+@CompileStatic @AutoExternalize @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy,
       prefix = "")
 abstract class EventBase {
    long timeStamp = -1
 
-   abstract EventBase reset()
+   @NotNull abstract EventBase reset()
 
    @NotNull EventBase recycle() {
       reset()

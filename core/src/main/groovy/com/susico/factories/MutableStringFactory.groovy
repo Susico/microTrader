@@ -1,14 +1,13 @@
 package com.susico.factories
 
 import groovy.transform.CompileStatic
-import groovy.transform.TypeChecked
 import it.unimi.dsi.lang.MutableString
 import org.jetbrains.annotations.NotNull
 
 /**
  * Created by Suminda on 14/06/2014.
  */
-@TypeChecked @CompileStatic
+@CompileStatic
 final class MutableStringFactory {
    @NotNull private static final MutableString NullMutableString = new MutableString(0);
 

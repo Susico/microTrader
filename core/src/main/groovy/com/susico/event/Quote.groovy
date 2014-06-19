@@ -3,7 +3,10 @@ package com.susico.event
 import com.susico.enums.PriceConvention
 import com.susico.enums.QuoteLevel
 import com.susico.enums.QuoteSide
-import groovy.transform.*
+import groovy.transform.AutoClone
+import groovy.transform.AutoExternalize
+import groovy.transform.Canonical
+import groovy.transform.CompileStatic
 import groovy.transform.builder.Builder
 import groovy.transform.builder.SimpleStrategy
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap
@@ -19,7 +22,7 @@ import static com.susico.factories.MutableStringFactory.getMutableString
  * Quote com.susico.event.
  * Created by Suminda on 09/06/2014.
  */
-@TypeChecked @CompileStatic @AutoExternalize @AutoClone @Canonical
+@CompileStatic @AutoExternalize @AutoClone @Canonical
 @Builder(builderStrategy = SimpleStrategy, prefix = "")
 class Quote extends EventBase {
             long            id              = -1
