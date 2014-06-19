@@ -32,10 +32,10 @@ allprojects {
       compile group: 'it.unimi.dsi', name: 'dsiutils', version: '2.2.0'
       compile group: 'it.unimi.dsi', name: 'sux4j', version: '3.1.2'
 
-      compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.3.4-SNAPSHOT'
+      compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.0-SNAPSHOT'
 
-      groovyDoc 'org.codehaus.groovy:groovy-groovydoc:2.3.4-SNAPSHOT'
-      groovyDoc 'org.codehaus.groovy:groovy-ant:2.3.4-SNAPSHOT'
+      groovyDoc 'org.codehaus.groovy:groovy-groovydoc:2.4.0-SNAPSHOT'
+      groovyDoc 'org.codehaus.groovy:groovy-ant:2.4.0-SNAPSHOT'
 
       testCompile group: 'org.codenarc', name: 'CodeNarc', version: '0.21'
       testCompile group: 'org.spockframework', name: 'spock-core', version: '0.7-groovy-2.0'
