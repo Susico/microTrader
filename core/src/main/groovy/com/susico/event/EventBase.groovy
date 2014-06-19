@@ -1,5 +1,7 @@
 package com.susico.event
 
+import groovy.transform.AutoClone
+import groovy.transform.Canonical
 import groovy.transform.CompileStatic
 import groovy.transform.builder.Builder
 import groovy.transform.builder.SimpleStrategy
@@ -11,7 +13,7 @@ import org.jetbrains.annotations.NotNull
 /**
  * Created by Suminda on 09/06/2014.
  */
-@CompileStatic @Builder(builderStrategy = SimpleStrategy, prefix = "")
+@CompileStatic @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
 abstract class EventBase {
    long timeStamp = -1
 
@@ -95,12 +97,12 @@ abstract class EventBase {
    }
 
    @NotNull public <K1, K2 extends K1, V1, V2 extends V1> Map<K1, V1> setMap(@NotNull Map<K1, V1> to,
-                                                          @NotNull Map.Entry<K2, V2> from) {
+                                                                             @NotNull Map.Entry<K2, V2> from) {
       setMap(to, from.getKey(), from.getValue())
    }
 
    @NotNull public <K1, K2 extends K1, V1, V2 extends V1> Map<K1, V1> setMap(@NotNull Map<K1, V1> to, @NotNull K2 key,
-                                                          @NotNull V2 value) {
+                                                                             @NotNull V2 value) {
       to.clear()
 
       to.put(key, value)
