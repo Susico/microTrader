@@ -17,7 +17,7 @@ class ExecutionReportPublisher extends BasePublisher<ExecutionReport> {
       long sequence = ringBuffer.next()
 
       try {
-         ExecutionReport executionReport = ringBuffer.get(sequence)
+         ExecutionReport executionReport = ringBuffer.<ExecutionReport> get(sequence)
 
          executionReport.set timeStamp, orderID, status, size, filled, pending
       } catch (e) {

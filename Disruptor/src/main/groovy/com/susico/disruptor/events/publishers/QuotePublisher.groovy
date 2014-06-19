@@ -23,7 +23,7 @@ class QuotePublisher extends BasePublisher<Quote> {
       long sequence = ringBuffer.next()
 
       try {
-         Quote quote = ringBuffer.get(sequence)
+         Quote quote = ringBuffer.<Quote> get(sequence)
 
          quote.set timeStamp, id, ticker, side, price, priceConvention, size, currency, marketMaker, rank,
                    best,

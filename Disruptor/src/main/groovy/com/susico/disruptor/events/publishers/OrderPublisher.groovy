@@ -29,7 +29,7 @@ class OrderPublisher extends BasePublisher<Order> {
       long sequence = ringBuffer.next()
 
       try {
-         Order order = ringBuffer.get(sequence)
+         Order order = ringBuffer.<Order> get(sequence)
 
          order.set timeStamp, id, orderAction, account, settlingFirm, ticker, exchange, orderTypeName, size, isHidden,
                    displayQuantity, timeInForce, beforeDateParam, afterDateParam, afterHours, isAllOrNone, minQuantity,
