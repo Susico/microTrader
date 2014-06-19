@@ -1,6 +1,7 @@
 package com.susico.factories
 
 import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 import it.unimi.dsi.fastutil.longs.LongArraySet
 import it.unimi.dsi.fastutil.longs.LongCollection
 import it.unimi.dsi.fastutil.longs.LongSet
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull
 /**
  * Created by Suminda on 14/06/2014.
  */
-@CompileStatic
+@TypeChecked @CompileStatic
 final class CollectionFactory {
    @NotNull private static final LongSet EmptyLongSet = LongSets.EMPTY_SET;
 

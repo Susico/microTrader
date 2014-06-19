@@ -4,6 +4,7 @@ import com.susico.enums.*
 import com.susico.event.Order
 import groovy.transform.CompileStatic
 import groovy.transform.InheritConstructors
+import groovy.transform.TypeChecked
 import it.unimi.dsi.fastutil.longs.LongSet
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap
 import it.unimi.dsi.lang.MutableString
@@ -12,7 +13,7 @@ import org.jetbrains.annotations.NotNull
 /**
  * Created by Suminda on 19/06/2014.
  */
-@CompileStatic @InheritConstructors
+@TypeChecked @CompileStatic @InheritConstructors
 class OrderPublisher extends BasePublisher<Order> {
 
    void OnOrder(long timeStamp, long id, @NotNull OrderAction orderAction, MutableString account,

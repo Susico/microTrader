@@ -1,13 +1,10 @@
 package com.susico.jobs
 
-import groovy.transform.AutoClone
-import groovy.transform.AutoExternalize
-import groovy.transform.Canonical
-import groovy.transform.CompileStatic
+import groovy.transform.*
 
 /**
  * Created by Suminda on 18/06/2014.
  */
-@CompileStatic @AutoExternalize @AutoClone @Canonical
+@TypeChecked @CompileStatic @AutoExternalize @AutoClone @Canonical
 class ChroniclesExecReportJob extends BaseExecReportJob {
 }

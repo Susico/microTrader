@@ -4,12 +4,13 @@ import com.susico.enums.OrderStatus
 import com.susico.event.ExecutionReport
 import groovy.transform.CompileStatic
 import groovy.transform.InheritConstructors
+import groovy.transform.TypeChecked
 import org.jetbrains.annotations.NotNull
 
 /**
  * Created by Suminda on 19/06/2014.
  */
-@CompileStatic @InheritConstructors
+@TypeChecked @CompileStatic @InheritConstructors
 class ExecutionReportPublisher extends BasePublisher<ExecutionReport> {
    @Override
    void OnExecutionReport(long timeStamp, long orderID, @NotNull OrderStatus status, long size, long filled,
