@@ -6,7 +6,6 @@ import com.susico.enums.QuoteSide
 import com.susico.event.Quote
 import groovy.transform.CompileStatic
 import groovy.transform.InheritConstructors
-import groovy.util.logging.Log4j2
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap
 import it.unimi.dsi.lang.MutableString
 import org.jetbrains.annotations.NotNull
@@ -14,7 +13,7 @@ import org.jetbrains.annotations.NotNull
 /**
  * Created by Suminda on 19/06/2014.
  */
-@CompileStatic @InheritConstructors @Log4j2
+@CompileStatic @InheritConstructors
 class QuotePublisher extends BasePublisher<Quote> {
    @Override
    void OnQuote(long timeStamp, long id, @NotNull MutableString ticker, QuoteSide side, double price,
@@ -30,7 +29,7 @@ class QuotePublisher extends BasePublisher<Quote> {
                    best,
                    NBBO, quoteLevel, meta
       } catch (e) {
-         log.error e
+         // log.error e
       } finally {
          ringBuffer.publish(sequence)
       }

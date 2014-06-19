@@ -4,7 +4,6 @@ import com.susico.enums.*
 import com.susico.event.Order
 import groovy.transform.CompileStatic
 import groovy.transform.InheritConstructors
-import groovy.util.logging.Log4j2
 import it.unimi.dsi.fastutil.longs.LongSet
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap
 import it.unimi.dsi.lang.MutableString
@@ -13,7 +12,7 @@ import org.jetbrains.annotations.NotNull
 /**
  * Created by Suminda on 19/06/2014.
  */
-@CompileStatic @InheritConstructors @Log4j2
+@CompileStatic @InheritConstructors
 class OrderPublisher extends BasePublisher<Order> {
 
    void OnOrder(long timeStamp, long id, @NotNull OrderAction orderAction, MutableString account,
@@ -38,7 +37,7 @@ class OrderPublisher extends BasePublisher<Order> {
                    referenceTicker, discretionaryAmount, NBBOCap, eTradeOnly, firmQuoteOnly, disableSmartRouting,
                    contingentOrderAction, contingentOrderIds, tag, meta
       } catch (e) {
-         log.error e
+         // log.error e
       } finally {
          ringBuffer.publish(sequence)
       }
