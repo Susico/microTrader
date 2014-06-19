@@ -8,7 +8,7 @@ import groovy.transform.CompileStatic
  */
 @CompileStatic
 abstract class BasePublisher<T> {
-   private final RingBuffer<T> ringBuffer
+   final RingBuffer<T> ringBuffer
 
    BasePublisher(RingBuffer<T> ringBuffer) {
       this.ringBuffer = ringBuffer
