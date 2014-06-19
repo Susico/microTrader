@@ -1,6 +1,5 @@
 package com.susico.event
 
-import groovy.transform.AutoClone
 import groovy.transform.Canonical
 import groovy.transform.CompileStatic
 import groovy.transform.builder.Builder
@@ -13,7 +12,7 @@ import org.jetbrains.annotations.NotNull
 /**
  * Created by Suminda on 09/06/2014.
  */
-@CompileStatic @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
+@CompileStatic @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
 abstract class EventBase {
    long timeStamp = -1
 

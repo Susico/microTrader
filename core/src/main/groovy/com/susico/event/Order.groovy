@@ -1,7 +1,6 @@
 package com.susico.event
 
 import com.susico.enums.*
-import groovy.transform.AutoClone
 import groovy.transform.Canonical
 import groovy.transform.CompileStatic
 import groovy.transform.builder.Builder
@@ -19,7 +18,7 @@ import static com.susico.factories.MutableStringFactory.getMutableString
 /**
  * Created by Suminda on 09/06/2014.
  */
-@CompileStatic @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
+@CompileStatic @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
 class Order extends EventBase {
    // NB: @NotNull for primitive type is for alignment
             long          id            = -1

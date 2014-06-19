@@ -1,7 +1,6 @@
 package com.susico.event
 
 import com.susico.enums.OrderStatus
-import groovy.transform.AutoClone
 import groovy.transform.Canonical
 import groovy.transform.CompileStatic
 import groovy.transform.builder.Builder
@@ -11,7 +10,7 @@ import org.jetbrains.annotations.NotNull
 /**
  * Created by Suminda on 15/06/2014.
  */
-@CompileStatic @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
+@CompileStatic @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
 class ExecutionReport extends EventBase {
             long        orderID = -1
    @NotNull OrderStatus status  = OrderStatus.Default
