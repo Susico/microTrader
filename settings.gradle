@@ -1,1 +1,1 @@
-include 'core', 'GPars', 'Chronicles', 'Disruptor'
+include 'core', 'gpars', 'chronicles', 'disruptor'

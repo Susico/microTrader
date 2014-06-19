@@ -24,23 +24,24 @@ import static com.susico.factories.MutableStringFactory.getMutableString
  */
 @CompileStatic @AutoExternalize @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
 class Quote extends EventBase {
-   long   id    = -1
+            long            id              = -1
    @NotNull MutableString   ticker          = getMutableString()
    @NotNull QuoteSide       side            = QuoteSide.Default
-   double price = Double.NaN
+            double          price           = Double.NaN
    @NotNull PriceConvention priceConvention = PriceConvention.Price
-   double size  = Double.NaN // Defined as double for FX
+            double          size            = Double.NaN // Defined as double for FX
    @NotNull MutableString   currency        = getMutableString()
 
    @NotNull MutableString marketMaker      = getMutableString()
-   long   rankOrderingOrId = -1
-   double bestBidOffer     = Double.NaN
-   double NBBO             = Double.NaN
+            long          rankOrderingOrId = -1
+            double        bestBidOffer     = Double.NaN
+            double        NBBO             = Double.NaN
    @NotNull QuoteLevel    quoteLevel       = QuoteLevel.Default
 
    @NotNull Object2ObjectMap meta = getObjectObjectMap()
 
    Quote reset() {
+      setTimeStamp(-1)
       setId(-1L)
       setTicker(NullMutableString())
       setSide(QuoteSide.Default)
@@ -58,12 +59,12 @@ class Quote extends EventBase {
       this
    }
 
-   void set(long id, long timeStamp, @NotNull MutableString ticker, QuoteSide side, double price,
+   void set(long timeStamp, long id, @NotNull MutableString ticker, QuoteSide side, double price,
             @NotNull PriceConvention priceConvention, double size, @NotNull MutableString currency,
-            @NotNull MutableString marketMaker, long rank, double best, double NBBO,
-            @NotNull QuoteLevel quoteLevel, @NotNull Object2ObjectMap meta) {
-      setId(-1)
+            @NotNull MutableString marketMaker, long rank, double best, double NBBO, @NotNull QuoteLevel quoteLevel,
+            @NotNull Object2ObjectMap meta) {
       setTimeStamp(timeStamp)
+      setId(-1)
       setTicker(ticker)
       setSide(side)
       setPrice(price)

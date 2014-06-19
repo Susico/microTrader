@@ -12,8 +12,8 @@ allprojects {
    description = 'A minimalist set of libraries to build trading systems'
 
    repositories {
-      mavenCentral()
       mavenLocal()
+      mavenCentral()
 
       maven { url 'http://oss.sonatype.org/content/groups/public/' }
    }
@@ -30,17 +30,19 @@ allprojects {
 
       compile group: 'com.intellij', name: 'annotations', version: '12.0'
 
-      compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.3.3'
-
       compile group: 'it.unimi.dsi', name: 'fastutil', version: '6.5.15'
       compile group: 'it.unimi.dsi', name: 'dsiutils', version: '2.2.0'
       compile group: 'it.unimi.dsi', name: 'sux4j', version: '3.1.2'
 
-      testCompile group: 'org.codenarc', name: 'CodeNarc', version: '0.21'
-      testCompile group: 'org.spockframework', name: 'spock-core', version: '0.7-groovy-2.0'
+      compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.3.3'
 
       groovyDoc 'org.codehaus.groovy:groovy-groovydoc:2.3.3'
       groovyDoc 'org.codehaus.groovy:groovy-ant:2.3.3'
+
+      testCompile group: 'org.codenarc', name: 'CodeNarc', version: '0.21'
+      testCompile group: 'org.spockframework', name: 'spock-core', version: '0.7-groovy-2.0'
+
+      compile group: 'org.scala-lang', name: 'scala-library-all', version: '2.11.1'
    }
 
    task wrapper(type: Wrapper) {
@@ -58,4 +60,11 @@ allprojects {
          downloadJavadoc = true
       }
    }
+}
+
+dependencies {
+   compile project(':core')
+   compile project(':chronicles')
+   compile project(':disruptor')
+   compile project(':gpars')
 }

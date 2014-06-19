@@ -20,20 +20,22 @@ class ExecutionReport extends EventBase {
    long filled  = -1
    long pending = -1
 
-   def set(long orderID, @NotNull OrderStatus status, long size, long filled, long pending) {
-      this.orderID = orderID
-      this.status = status
-      this.size = size
-      this.filled = filled
-      this.pending = pending
+   def set(long timeStamp, long orderID, @NotNull OrderStatus status, long size, long filled, long pending) {
+      setTimeStamp(timeStamp)
+      setOrderID(orderID)
+      setStatus(status)
+      setSize(size)
+      setFilled(filled)
+      setPending(pending)
    }
 
    def ExecutionReport reset() {
-      this.orderID = -1
-      this.status = OrderStatus.Default
-      this.size = -1
-      this.filled = -1
-      this.pending = -1
+      setTimeStamp(-1)
+      setOrderID(-1)
+      setStatus(OrderStatus.Default)
+      setSize(-1)
+      setFilled(-1)
+      setPending(-1)
 
       this
    }

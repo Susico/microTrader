@@ -23,14 +23,14 @@ import static com.susico.factories.MutableStringFactory.getMutableString
 @CompileStatic @AutoExternalize @AutoClone @Canonical @Builder(builderStrategy = SimpleStrategy, prefix = "")
 class Order extends EventBase {
    // NB: @NotNull for primitive type is for alignment
-   long   id   = -1
+            long          id            = -1
    @NotNull OrderAction   orderAction   = OrderAction.Default
    @NotNull MutableString account       = getMutableString()
    @NotNull MutableString settlingFirm  = getMutableString()
    @NotNull MutableString ticker        = getMutableString()
    @NotNull MutableString exchange      = getMutableString()
    @NotNull MutableString orderTypeName = getMutableString()
-   double size = Double.NaN
+            double        size          = Double.NaN
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    boolean hidden          = false
@@ -38,9 +38,9 @@ class Order extends EventBase {
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    @NotNull OrderTimeInForce timeInForce     = OrderTimeInForce.Default
-   long    beforeDateParam = -1
-   long    afterDateParam  = -1
-   boolean afterHours      = false
+            long             beforeDateParam = -1
+            long             afterDateParam  = -1
+            boolean          afterHours      = false
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    boolean allOrNone   = false
@@ -55,9 +55,9 @@ class Order extends EventBase {
 
    @NotNull PriceConvention priceConvention = PriceConvention.Price
 
-   double priceLimit   = Double.NaN
-   double priceStop    = Double.NaN
-   double offsetAmount = Double.NaN
+   double              priceLimit   = Double.NaN
+   double              priceStop    = Double.NaN
+            double     offsetAmount = Double.NaN
    @NotNull OffsetType offsetType   = OffsetType.Default
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
