@@ -21,7 +21,7 @@ class ExecutionReport extends EventBase {
             long        filled  = -1
             long        pending = -1
 
-   def set(long timeStamp, long orderID, @NotNull OrderStatus status, long size, long filled, long pending) {
+   void set(long timeStamp, long orderID, @NotNull OrderStatus status, long size, long filled, long pending) {
       setTimeStamp(timeStamp)
       setOrderID(orderID)
       setStatus(status)
@@ -30,7 +30,7 @@ class ExecutionReport extends EventBase {
       setPending(pending)
    }
 
-   def ExecutionReport reset() {
+   ExecutionReport reset() {
       setTimeStamp(-1)
       setOrderID(-1)
       setStatus(OrderStatus.Default)
