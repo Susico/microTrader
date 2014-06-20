@@ -2,3 +2,7 @@ language: groovy
 jdk:
   - openjdk8
   - oraclejdk8
+  
+notifications:
+  email:
+    - microtrader-commits@googlegroups.com
