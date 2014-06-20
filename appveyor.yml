@@ -1,0 +1,14 @@
+install:
+  - cinst java.jdk
+  - cinst groovy
+  - cinst scala.install
+  - cinst maven
+  - cinst apache.ant
+  - cinst sbt
+  - cinst gradle
+  
+build_script:
+  - build
+  
+test_script:
+  - test
