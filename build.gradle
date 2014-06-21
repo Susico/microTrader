@@ -9,6 +9,9 @@ allprojects {
    group = 'com.susico'
    version = '0.1'
 
+   sourceCompatibility = '1.8'
+   targetCompatibility = '1.8'
+
    description = 'A minimalist set of libraries to build trading systems'
 
    repositories {

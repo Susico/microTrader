@@ -1,3 +1,5 @@
+version: 1.0.{build}
+
 install:
   - cinst java.jdk
   - cinst groovy
@@ -7,8 +9,14 @@ install:
   - cinst sbt
   - cinst gradle
   
+before_build:
+  - gradle :wrapper
+  
+before_build:
+  - gradle :wrapper
+  
 build_script:
-  - build
+  - gradlew :build
   
 test_script:
-  - test
+  - gradlew :test
