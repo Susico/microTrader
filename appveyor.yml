@@ -6,7 +6,7 @@ install:
 before_build:
   - gradlew :wrapper
   
-before_build:
+before_test:
   - gradlew :wrapper
   
 build_script:
