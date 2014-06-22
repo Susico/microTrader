@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull
  */
 @CompileStatic @InheritConstructors
 class OrderPublisher extends BasePublisher<Order> {
-
    void OnOrder(long timeStamp, long id, @NotNull OrderAction orderAction, MutableString account,
                 MutableString settlingFirm, @NotNull MutableString ticker, @NotNull MutableString exchange,
                 @NotNull MutableString orderTypeName, double size, boolean isHidden, long displayQuantity,
@@ -29,7 +28,7 @@ class OrderPublisher extends BasePublisher<Order> {
       long sequence = ringBuffer.next()
 
       try {
-         Order order = ringBuffer.<Order> get(sequence)
+         Order order = (Order) ringBuffer.get(sequence)
 
          order.set timeStamp, id, orderAction, account, settlingFirm, ticker, exchange, orderTypeName, size, isHidden,
                    displayQuantity, timeInForce, beforeDateParam, afterDateParam, afterHours, isAllOrNone, minQuantity,

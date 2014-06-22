@@ -11,13 +11,12 @@ import org.jetbrains.annotations.NotNull
  */
 @CompileStatic @InheritConstructors
 class ExecutionReportPublisher extends BasePublisher<ExecutionReport> {
-   @Override
    void OnExecutionReport(long timeStamp, long orderID, @NotNull OrderStatus status, long size, long filled,
                           long pending) {
       long sequence = ringBuffer.next()
 
       try {
-         ExecutionReport executionReport = ringBuffer.<ExecutionReport> get(sequence)
+         ExecutionReport executionReport = (ExecutionReport) ringBuffer.get(sequence)
 
          executionReport.set timeStamp, orderID, status, size, filled, pending
       } catch (e) {

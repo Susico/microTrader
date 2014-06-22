@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull
  */
 @CompileStatic @InheritConstructors
 class QuotePublisher extends BasePublisher<Quote> {
-   @Override
    void OnQuote(long timeStamp, long id, @NotNull MutableString ticker, QuoteSide side, double price,
                 @NotNull PriceConvention priceConvention, double size, @NotNull MutableString currency,
                 @NotNull MutableString marketMaker, long rank, double best, double NBBO,
@@ -23,7 +22,7 @@ class QuotePublisher extends BasePublisher<Quote> {
       long sequence = ringBuffer.next()
 
       try {
-         Quote quote = ringBuffer.<Quote> get(sequence)
+         Quote quote = (Quote) ringBuffer.get(sequence)
 
          quote.set timeStamp, id, ticker, side, price, priceConvention, size, currency, marketMaker, rank,
                    best,
