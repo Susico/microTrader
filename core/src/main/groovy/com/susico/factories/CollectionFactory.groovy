@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.longs.LongArraySet
 import it.unimi.dsi.fastutil.longs.LongCollection
 import it.unimi.dsi.fastutil.longs.LongSet
 import it.unimi.dsi.fastutil.longs.LongSets
+import it.unimi.dsi.fastutil.objects.Object2ObjectAVLTreeMap
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps
@@ -37,5 +38,9 @@ final class CollectionFactory {
 
    @NotNull public static Object2ObjectMap getObjectObjectMap() {
       return new Object2ObjectArrayMap();
+   }
+
+   @NotNull public static Object2ObjectMap getObjectObjectTreeMap() {
+      return new Object2ObjectAVLTreeMap();
    }
 }

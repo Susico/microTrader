@@ -23,7 +23,11 @@ abstract class EventBase {
    }
 
    void setTimeStamp(long timeStamp) {
-      this.timeStamp = timeStamp < 0 ? -1 : timeStamp;
+      this.timeStamp = timeStamp < 0 ? -1 : timeStamp
+   }
+
+   void setTimeStamp() {
+      this.timeStamp = System.currentTimeMillis()
    }
 
    @NotNull MutableString setStr(@NotNull MutableString sb, @NotNull CharSequence str) {
