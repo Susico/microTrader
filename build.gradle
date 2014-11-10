@@ -31,13 +31,7 @@ allprojects {
    dependencies {
       compile group: 'com.intellij', name: 'annotations', version: '12.0'
 
-      compile group: 'it.unimi.dsi', name: 'fastutil', version: '6.5.15'
-      compile group: 'it.unimi.dsi', name: 'dsiutils', version: '2.2.0'
-      compile group: 'it.unimi.dsi', name: 'sux4j', version: '3.1.2'
-
-      compile group: 'org.reactivestreams', name: 'reactive-streams', version: '0.4.0.M1'
-
-      groovyVersion = '2.4.0-beta-1'
+      groovyVersion = '2.3.7'
 
       compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
 
@@ -46,12 +40,10 @@ allprojects {
 
       testCompile group: 'org.codenarc', name: 'CodeNarc', version: '0.21'
       testCompile group: 'org.spockframework', name: 'spock-core', version: '0.7-groovy-2.0'
-
-      compile group: 'org.scala-lang', name: 'scala-library-all', version: '2.11.1'
    }
 
    task wrapper(type: Wrapper) {
-      gradleVersion = '1.12'
+      gradleVersion = '2.1'
    }
 
    groovydoc {
