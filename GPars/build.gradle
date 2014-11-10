@@ -1,7 +1,0 @@
-description = 'A minimalist set of libraries to build trading systems using GPars'
-
-dependencies {
-   compile project(':core')
-
-   compile group: 'org.codehaus.gpars', name: 'gpars', version: '1.2.1'
-}

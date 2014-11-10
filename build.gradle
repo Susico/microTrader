@@ -14,7 +14,7 @@ allprojects {
 
    description = 'A minimalist set of libraries to build trading systems'
 
-   repositories {
+   repositoris {
       mavenLocal()
       mavenCentral()
 

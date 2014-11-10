@@ -1,8 +1,0 @@
-description = 'A minimalist set of libraries to build trading systems using Chronicles'
-
-dependencies {
-   compile project(':core')
-
-   compile group: 'net.openhft', name: 'chronicle', version: '3.1.1'
-}
-
