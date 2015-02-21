@@ -40,6 +40,9 @@ allprojects {
 
       testCompile group: 'org.codenarc', name: 'CodeNarc', version: '0.21'
       testCompile group: 'org.spockframework', name: 'spock-core', version: '0.7-groovy-2.0'
+
+
+      compile 'io.reactivex:rxgroovy:1.0.0-rc.1'
    }
 
    task wrapper(type: Wrapper) {
